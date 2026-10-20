@@ -1,0 +1,80 @@
+@startuml
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam linetype ortho
+skinparam nodesep 18
+skinparam ranksep 24
+skinparam defaultFontSize 15
+skinparam usecase {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  ArrowColor #334155
+}
+title Cas d'utilisation communs : visiteur et utilisateur authentifié
+actor "Visiteur" as Visitor
+actor "Utilisateur authentifié" as User
+rectangle "Plateforme GMAO" {
+  package "Accès public" {
+    usecase "S'inscrire" as R
+    usecase "Vérifier l'adresse électronique" as VE
+    usecase "Se connecter" as L
+    usecase "Se connecter avec Google" as GL
+    usecase "Échanger le résultat Google" as GX
+    usecase "Mot de passe oublié" as FP
+    usecase "Vérifier le jeton de réinitialisation" as VT
+    usecase "Réinitialiser le mot de passe" as RP
+    usecase "Consulter l'état de santé de l'API" as H
+  }
+  package "Fonctions communes authentifiées" {
+    usecase "Compléter le profil" as CP
+    usecase "Rafraîchir la session" as RF
+    usecase "Se déconnecter" as LO
+    usecase "Gérer son profil et sa photo" as PR
+    usecase "Consulter les notifications" as VN
+    usecase "Consulter le compteur non lu" as UN
+    usecase "Marquer les notifications comme lues" as RN
+    usecase "Supprimer les notifications" as DN
+    usecase "Gérer les vues sauvegardées" as SV
+    usecase "Gérer la base de connaissances" as KB
+    usecase "Consulter les suggestions de connaissance" as KS
+    usecase "Traduire le contenu dynamique avec cache" as TR
+    usecase "Demander un rapport exporté" as GR
+    usecase "Consulter ou télécharger les rapports" as DR
+    usecase "Gérer les rapports planifiés" as SR
+  }
+}
+Visitor --> R
+Visitor --> VE
+Visitor --> L
+Visitor --> GL
+Visitor --> GX
+Visitor --> FP
+Visitor --> VT
+Visitor --> RP
+Visitor --> H
+User --> CP
+User --> RF
+User --> LO
+User --> PR
+User --> VN
+User --> UN
+User --> RN
+User --> DN
+User --> SV
+User --> KB
+User --> KS
+User --> TR
+User --> GR
+User --> DR
+User --> SR
+R ..> VE : <<include>>
+GL ..> GX : <<include>>
+RP ..> VT : <<include>>
+VN ..> UN : <<include>>
+VN ..> RN : <<extend>>
+VN ..> DN : <<extend>>
+GR ..> DR : <<extend>>
+SR ..> DR : <<include>>
+@enduml

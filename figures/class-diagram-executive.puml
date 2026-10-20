@@ -1,0 +1,119 @@
+@startuml
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam nodesep 25
+skinparam ranksep 35
+skinparam class {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  ArrowColor #334155
+}
+
+title Diagramme de classes synthétique de la plateforme GMAO
+
+package "Identité et accès" #E0F2FE {
+  class User {
+    +id
+    +nom
+    +email
+    +role
+    +statut
+  }
+}
+
+package "Équipements" #DCFCE7 {
+  class MachineType
+  class Machine {
+    +id
+    +nom
+    +statut
+  }
+  class ModuleType
+  class Module
+  class Capteur
+  class Mesure {
+    +valeur
+    +horodatage
+  }
+}
+
+package "Maintenance" #FEF3C7 {
+  class MaintenancePlan {
+    +périodicité
+    +statut
+  }
+  class WorkOrder {
+    +type
+    +priorité
+    +statut
+  }
+  class InterventionReport
+  class KPI
+}
+
+package "Stocks et documents" #FCE7F3 {
+  class Catalogue
+  class Stock {
+    +quantité
+    +seuilMinimal
+  }
+  class PartRequest {
+    +quantité
+    +statut
+  }
+  class DocumentEntity {
+    +version
+    +statut
+  }
+}
+
+package "Pilotage" #FFEDD5 {
+  class Notification
+  class ReportService <<service>>
+  class SchedulerService <<service>>
+}
+
+package "Maintenance prédictive" #EDE9FE {
+  class MachineHealthPrediction {
+    +score
+    +niveauRisque
+  }
+  class AiAnomalyAnalysis {
+    +scoreRisque
+    +versionModèle
+    +validationHumaine
+  }
+  class AiInteraction
+}
+
+MachineType "1" -- "0..*" Machine : catégorise
+Machine "1" *-- "0..*" Module : contient
+ModuleType "1" -- "0..*" Module : catégorise
+Module "1" *-- "0..*" Capteur : équipe
+Capteur "1" *-- "0..*" Mesure : produit
+
+Machine "1" -- "0..*" MaintenancePlan : possède
+Machine "1" -- "0..*" WorkOrder : concerne
+MaintenancePlan "0..1" -- "0..*" WorkOrder : génère
+User "1" -- "0..*" WorkOrder : technicien
+WorkOrder "1" *-- "0..1" InterventionReport : documente
+WorkOrder "1" -- "0..*" PartRequest : nécessite
+Catalogue "1" -- "0..*" Stock : référence
+PartRequest "0..*" -- "1" Catalogue : demande
+Machine "1" -- "0..*" DocumentEntity : documente
+
+User "1" -- "0..*" Notification : reçoit
+ReportService ..> KPI : calcule
+ReportService ..> WorkOrder : exploite
+SchedulerService ..> MaintenancePlan : planifie
+SchedulerService ..> Notification : génère
+
+Machine "1" -- "0..*" MachineHealthPrediction : possède
+Machine "1" -- "0..*" AiAnomalyAnalysis : analyse
+Capteur "0..1" -- "0..*" AiAnomalyAnalysis : source
+User "0..1" -- "0..*" AiAnomalyAnalysis : valide
+User "1" -- "0..*" AiInteraction : initie
+AiInteraction ..> MachineHealthPrediction : consulte
+@enduml

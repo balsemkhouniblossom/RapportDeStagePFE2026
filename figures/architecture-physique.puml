@@ -1,0 +1,53 @@
+@startuml
+left to right direction
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam linetype ortho
+skinparam nodesep 35
+skinparam ranksep 35
+skinparam defaultFontName Arial
+
+title Architecture physique de la plateforme GMAO
+
+actor "Utilisateur\nNavigateur web" as User
+node "Vercel" #E0F2FE {
+  component "Frontend Next.js" as Frontend
+}
+
+node "Render" #DCFCE7 {
+  component "API NestJS" as Backend
+  component "Service FastAPI\nAnomalies IMS" as FastAPI
+}
+
+cloud "Services de données" #FCE7F3 {
+  database "MongoDB Atlas" as Mongo
+  folder "Supabase Storage\nprivé" as Storage
+}
+
+cloud "Intégrations externes" #EDE9FE {
+  queue "Courtier MQTT" as Broker
+  component "Service de\nmessagerie" as Mail
+  component "Gemini\n(optionnel)" as Gemini
+}
+
+node "Supervision" #FFEDD5 {
+  component "Prometheus" as Prometheus
+  component "Grafana" as Grafana
+}
+
+node "Environnement industriel" #F1F5F9 {
+  component "Machines et capteurs\nconnectés" as Devices
+}
+
+User --> Frontend : HTTPS
+Frontend --> Backend : API HTTPS / WebSocket
+Backend --> Mongo : TLS
+Backend --> Storage : API sécurisée
+Backend --> FastAPI : HTTPS + jeton de service
+Backend --> Broker : MQTT sécurisé
+Backend --> Mail : API / SMTP
+Backend --> Gemini : API sécurisée
+Devices --> Broker : Télémétrie MQTT
+Prometheus --> Backend : collecte des métriques
+Grafana --> Prometheus : requêtes et tableaux de bord
+@enduml

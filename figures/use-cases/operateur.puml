@@ -1,0 +1,80 @@
+@startuml
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam linetype ortho
+skinparam nodesep 18
+skinparam ranksep 24
+skinparam defaultFontSize 15
+skinparam usecase {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  ArrowColor #334155
+}
+title Opérateur : suivi, maintenance préventive et signalement
+actor "Opérateur" as Operator
+rectangle "Plateforme GMAO" {
+  package "Espace opérateur" {
+    usecase "Consulter le tableau de bord opérateur" as OD
+    usecase "Consulter les machines assignées" as OM
+    usecase "Consulter le calendrier intelligent" as OC
+    usecase "Consulter ses rapports" as OR
+    usecase "Consulter l'état préventif d'une machine" as PS
+    usecase "Consulter les manuels" as VM
+    usecase "Consulter un document ou son aperçu" as VD
+    usecase "Consulter les KPI autorisés" as VK
+    usecase "Consulter les suggestions de connaissance" as KSO
+  }
+  package "Flux préventif" {
+    usecase "Traiter la maintenance préventive" as PF2
+    usecase "Planifier la première occurrence" as SF
+    usecase "Exécuter une occurrence préventive" as EP
+    usecase "Soumettre une intervention préventive" as SP
+    usecase "Valider une intervention préventive" as VP
+    usecase "Générer automatiquement la prochaine échéance" as GN
+    usecase "Replanifier une occurrence" as RP2
+  }
+  package "Flux correctif" {
+    usecase "Traiter la maintenance corrective" as CF
+    usecase "Signaler une panne et créer l'OT correctif" as PF3
+    usecase "Exécuter l'intervention corrective" as EC
+    usecase "Valider l'intervention corrective" as VC
+    usecase "Demander des pièces" as RQ
+    usecase "Consulter l'assistant correctif" as CS
+  }
+}
+Operator --> OD
+Operator --> OM
+Operator --> OC
+Operator --> OR
+Operator --> PS
+Operator --> VM
+Operator --> VD
+Operator --> VK
+Operator --> KSO
+Operator --> PF2
+Operator --> SF
+Operator --> EP
+Operator --> SP
+Operator --> VP
+Operator --> GN
+Operator --> RP2
+Operator --> CF
+Operator --> PF3
+Operator --> EC
+Operator --> VC
+Operator --> RQ
+Operator --> CS
+PF2 ..> SF : <<include>>
+PF2 ..> EP : <<include>>
+PF2 ..> SP : <<include>>
+PF2 ..> VP : <<include>>
+VP ..> GN : <<include>>
+RP2 ..> SF : <<extend>>
+CF ..> PF3 : <<include>>
+CF ..> EC : <<include>>
+CF ..> VC : <<include>>
+CF ..> RQ : <<extend>>
+VM ..> VD : <<include>>
+@enduml

@@ -1,0 +1,68 @@
+\begin{tikzpicture}[x=1cm, y=-1cm, remember picture, overlay]
+  \coordinate (orig) at (current page.north west);
+
+  \begin{scope}[shift={(orig)}]
+    line join=round
+
+    \draw[red, line width=1mm, line join=miter]
+      (10.5,1) -- (20,1) -- (20,21) -- (16.3,21) --
+      (16.3,17.3) -- (10.5,17.3) -- cycle;
+
+    \def\xstart{16.3}
+    \def\ystart{17.3}
+    \def\length{3.701}
+    \def\xwidth{3.7}
+    \def\spacing{0.1847}
+    \pgfmathsetmacro{\nlines}{int(\xwidth/\spacing)}
+    \foreach \i in {0,1,...,\nlines} {
+      \pgfmathsetmacro{\x}{\xstart + \i * \spacing}
+      \draw[red, line width=0.75pt] (\x, \ystart) -- (\x, {\ystart + \length});
+    }
+
+    \draw[fill=roseclair, draw=roseclair, line join=miter]
+      (1,21.6) -- (4.7,21.6) -- (4.7,25.3) -- (8.4,25.3) -- (8.4,29) -- (1,29) -- cycle;
+
+    \def\xstart{2}
+    \def\ystart{1}
+    \def\length{3.2}
+    \def\xwidth{3.7}
+    \def\spacing{0.5}
+    \pgfmathsetmacro{\nlines}{int(\xwidth/\spacing)}
+    \foreach \i in {0,1,...,\nlines} {
+      \pgfmathsetmacro{\x}{\xstart + \i * \spacing}
+      \draw[draw=red, line width=0.75pt] (\x, \ystart) -- (\x, {\ystart + \length});
+    }
+
+ 
+
+    \node[anchor=south west] at (10.415, 27.5)
+      {\includegraphics[width=3.5cm]{Logos/logo_reseaux_sociaux.jpeg}};
+
+
+    \node[anchor=north west] at (10.25,1.5) {%
+      \parbox[t][14.8cm][t]{8.5cm}{%
+        \hspace*{0.6cm}%
+        \parbox[t]{8.55cm}{%
+          {\sffamily\bfseries \large INTITULÉ DU RAPPORT}\\[8pt]
+          {\sffamily\bfseries Mots-clés }\\
+          mot-clé 1 ; mot-clé 2 ; mot-clé 3 ; mot-clé 4\\[6pt]
+          {\sffamily\bfseries Résumé}\\[4pt]
+          \lipsum[1][1-6]\\[8pt]
+          {\sffamily\bfseries Keywords }\\
+          keyword 1 ; keyword 2 ; keyword 3 ; keyword 4\\[6pt]
+          {\sffamily\bfseries Abstract}\\[4pt]
+          \lipsum[1][1-5]
+        }
+      }
+    };
+
+    \node[align=left, anchor=north west] at (10.5,23) {%
+        {\sffamily \bfseries INSA Rennes}\\[4pt]
+        {\itshape 20 avenue des Buttes de Coësmes}\\[2pt]
+        {\itshape CS 70839}\\[2pt]
+        {\itshape 35708 Rennes Cedex 7}\\[2pt]
+        {\itshape Tél : \href{tel:+33223238200}{+33 (0)2 23 23 82 00}}\\[2pt]
+        {\sffamily \bfseries www.insa-rennes.fr}\\[2pt]
+    };
+  \end{scope}
+\end{tikzpicture}

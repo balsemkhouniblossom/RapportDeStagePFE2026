@@ -1,0 +1,15 @@
+% Passe en pleine page (couvertures)
+\newcommand{\FullBleed}{\newgeometry{margin=0cm}}
+
+% Revient aux marges de rapport (définies dans packages.tex)
+\newcommand{\RestoreReportGeometry}{\restoregeometry}
+
+% Page blanche sans entête/pied
+\newcommand{\BlankPageEmpty}{%
+  \thispagestyle{empty}\null\clearpage
+}
+
+% Page blanche avec entête/pied (style inner)
+\newcommand{\BlankPageInner}{%
+  \thispagestyle{inner}\null\clearpage
+}

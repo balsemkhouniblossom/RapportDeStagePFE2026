@@ -1,0 +1,89 @@
+@startuml
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam linetype ortho
+skinparam nodesep 18
+skinparam ranksep 24
+skinparam defaultFontSize 15
+skinparam usecase {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  ArrowColor #334155
+}
+title Technicien : ordres de travail, validations et anomalies
+actor "Technicien" as Technician
+rectangle "Plateforme GMAO" {
+  package "Espace technicien" {
+    usecase "Consulter le tableau de bord technicien" as TD
+    usecase "Consulter les OT assignés" as TW
+    usecase "Revendiquer un OT" as CW2
+    usecase "Démarrer l'intervention" as SW
+    usecase "Mettre l'OT en attente de pièces" as WP
+    usecase "Reprendre l'intervention" as RW2
+    usecase "Renseigner le rapport technicien" as TR2
+    usecase "Définir les quantités de pièces" as PQ
+    usecase "Clôturer l'intervention" as CL2
+    usecase "Consulter les interventions en cours" as CI
+    usecase "Consulter les attentes de pièces" as WV
+    usecase "Consulter l'historique technicien" as TH
+  }
+  package "Maintenance et pièces" {
+    usecase "Valider une intervention préventive" as VP2
+    usecase "Exécuter une intervention corrective" as EC2
+    usecase "Valider une intervention corrective" as VC2
+    usecase "Décider une demande de pièces" as DP
+    usecase "Consommer les pièces et décrémenter le stock" as DC
+    usecase "Consulter les manuels" as VM2
+    usecase "Consulter les rapports d'intervention" as RI
+    usecase "Gérer les checklists préventives" as MC
+    usecase "Consulter les suggestions de connaissance" as KS2
+  }
+  package "Analyse IMS" {
+    usecase "Consulter les métadonnées IMS" as AM2
+    usecase "Lancer une analyse ponctuelle" as IA2
+    usecase "Lancer une analyse par lot" as BA2
+    usecase "Consulter les analyses et l'historique" as VA2
+    usecase "Filtrer risques et validations" as FA2
+    usecase "Confirmer ou rejeter une analyse" as XA2
+  }
+}
+Technician --> TD
+Technician --> TW
+Technician --> CW2
+Technician --> SW
+Technician --> WP
+Technician --> RW2
+Technician --> TR2
+Technician --> PQ
+Technician --> CL2
+Technician --> CI
+Technician --> WV
+Technician --> TH
+Technician --> VP2
+Technician --> EC2
+Technician --> VC2
+Technician --> DP
+Technician --> DC
+Technician --> VM2
+Technician --> RI
+Technician --> MC
+Technician --> KS2
+Technician --> AM2
+Technician --> IA2
+Technician --> BA2
+Technician --> VA2
+Technician --> FA2
+Technician --> XA2
+TW ..> CW2 : <<extend>>
+TW ..> SW : <<extend>>
+TW ..> WP : <<extend>>
+TW ..> RW2 : <<extend>>
+TW ..> TR2 : <<include>>
+TW ..> PQ : <<extend>>
+TW ..> CL2 : <<extend>>
+DP ..> DC : <<include>>
+VA2 ..> FA2 : <<extend>>
+XA2 ..> VA2 : <<include>>
+@enduml

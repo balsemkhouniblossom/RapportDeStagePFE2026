@@ -1,0 +1,69 @@
+@startuml
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam linetype ortho
+skinparam nodesep 18
+skinparam ranksep 24
+skinparam defaultFontSize 15
+skinparam usecase {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  ArrowColor #334155
+}
+title Acteurs externes et traitements automatiques
+actor "Équipement IoT / Machine" as Device
+actor "Service de messagerie" as Messaging
+actor "Stockage de fichiers" as Storage
+actor "Assistant IA Gemini" as AI
+actor "Service IA anomalies IMS / FastAPI" as Anomaly
+actor "Passerelle temps réel" as Gateway
+actor "Planificateur automatique" as Scheduler
+rectangle "Plateforme GMAO" {
+  package "Équipements connectés" {
+    usecase "Recevoir le heartbeat device" as HB
+    usecase "Ingérer la télémétrie device" as DT
+    usecase "Ingérer une panne device" as DF
+    usecase "Collecter les mesures machine" as CM
+  }
+  package "Services externes" {
+    usecase "Envoyer les courriels transactionnels" as EM
+    usecase "Téléverser ou remplacer un document" as UD
+    usecase "Consulter un document ou son aperçu" as VD2
+    usecase "Proposer des recommandations IA" as AIR
+    usecase "Rafraîchir une prédiction" as PR2
+    usecase "Entraîner le modèle prédictif" as TM3
+    usecase "Exécuter l'inférence déterministe" as INF
+    usecase "Diffuser les événements en temps réel" as RE
+  }
+  package "Planification automatique" {
+    usecase "Générer la prochaine échéance" as ND
+    usecase "Générer les notifications automatiques" as AN
+    usecase "Surveiller les alertes capteurs" as SA
+    usecase "Mettre à jour les KPI automatiquement" as KR
+    usecase "Exécuter les rapports planifiés" as RR
+  }
+}
+Device --> HB
+Device --> DT
+Device --> DF
+Device --> CM
+Messaging --> EM
+Storage --> UD
+Storage --> VD2
+AI --> AIR
+AI --> PR2
+AI --> TM3
+Anomaly --> INF
+Gateway --> RE
+Scheduler --> ND
+Scheduler --> AN
+Scheduler --> SA
+Scheduler --> KR
+Scheduler --> RR
+DT ..> RE : <<include>>
+DF ..> RE : <<include>>
+HB ..> RE : <<extend>>
+SA ..> CM : <<include>>
+@enduml

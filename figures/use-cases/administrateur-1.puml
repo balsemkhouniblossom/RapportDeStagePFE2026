@@ -1,0 +1,117 @@
+@startuml
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam linetype ortho
+skinparam nodesep 18
+skinparam ranksep 24
+skinparam defaultFontSize 15
+skinparam usecase {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  ArrowColor #334155
+}
+title Administrateur : comptes, référentiels et maintenance
+actor "Administrateur" as Admin
+rectangle "Plateforme GMAO" {
+  package "Utilisateurs" {
+    usecase "Gérer les utilisateurs" as AU
+    usecase "Approuver ou rejeter les comptes" as AP
+    usecase "Approuver ou rejeter en masse" as AB
+    usecase "Gérer l'authentification Google d'un utilisateur" as AG
+    usecase "Forcer la réinitialisation du mot de passe" as FR
+  }
+  package "Machines et modules" {
+    usecase "Gérer les machines" as MM
+    usecase "Consulter la fiche et la timeline machine" as MT
+    usecase "Gérer les types de machines" as TY
+    usecase "Gérer les modules" as MO
+    usecase "Gérer les types de modules" as TM
+    usecase "Gérer les pièces de module" as MP
+  }
+  package "Préventif" {
+    usecase "Gérer les plans de maintenance" as PL
+    usecase "Changer l'état d'un plan" as TP
+    usecase "Gérer les checklists préventives" as CL
+    usecase "Synchroniser les checklists depuis les plans" as SC
+  }
+  package "Ordres de travail" {
+    usecase "Gérer les ordres de travail" as WO
+    usecase "Créer un ordre de travail" as CW
+    usecase "Mettre à jour un ordre de travail" as UW
+    usecase "Supprimer un ordre de travail" as DW
+    usecase "Consulter le calendrier des OT" as WC
+    usecase "Replanifier un OT ou un événement" as RW
+    usecase "Compléter un ordre de travail" as CO
+    usecase "Valider un ordre de travail" as VW
+    usecase "Consulter les statistiques des OT" as WS
+    usecase "Gérer les rapports d'intervention" as IR
+  }
+  package "Pannes, stocks et documents" {
+    usecase "Gérer le référentiel des pannes" as MF
+    usecase "Gérer les solutions de panne" as FS
+    usecase "Gérer le stock" as ST
+    usecase "Ajuster le stock" as AS
+    usecase "Consulter les mouvements de stock" as SM
+    usecase "Gérer le catalogue des pièces" as CA
+    usecase "Gérer les pièces liées aux OT" as OP
+    usecase "Gérer les lubrifiants" as LU
+    usecase "Gérer les journaux de lubrification" as LL
+    usecase "Gérer les documents techniques" as DO
+    usecase "Publier ou archiver un document" as PD
+  }
+}
+Admin --> AU
+Admin --> AP
+Admin --> AB
+Admin --> AG
+Admin --> FR
+Admin --> MM
+Admin --> MT
+Admin --> TY
+Admin --> MO
+Admin --> TM
+Admin --> MP
+Admin --> PL
+Admin --> TP
+Admin --> CL
+Admin --> SC
+Admin --> WO
+Admin --> CW
+Admin --> UW
+Admin --> DW
+Admin --> WC
+Admin --> RW
+Admin --> CO
+Admin --> VW
+Admin --> WS
+Admin --> IR
+Admin --> MF
+Admin --> FS
+Admin --> ST
+Admin --> AS
+Admin --> SM
+Admin --> CA
+Admin --> OP
+Admin --> LU
+Admin --> LL
+Admin --> DO
+Admin --> PD
+AU ..> AP : <<include>>
+AU ..> AB : <<extend>>
+AU ..> AG : <<extend>>
+AU ..> FR : <<extend>>
+MM ..> MT : <<extend>>
+PL ..> TP : <<include>>
+CL ..> SC : <<extend>>
+WO ..> CW : <<include>>
+WO ..> UW : <<include>>
+WO ..> DW : <<include>>
+WO ..> WC : <<include>>
+WO ..> RW : <<extend>>
+WO ..> CO : <<extend>>
+WO ..> VW : <<include>>
+ST ..> AS : <<extend>>
+ST ..> SM : <<include>>
+@enduml

@@ -1,0 +1,78 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{lipsum}
+% --- Préambule ---
+\input{preambule/preambule_packages}
+\input{preambule/preambule_couleurs}
+\input{preambule/preambule_headers}
+\input{preambule/preambule_macros}
+
+\begin{document}
+
+% =========================
+% 1) COUVERTURE AVANT
+% =========================
+\FullBleed
+\thispagestyle{empty}
+\input{pages/pages_couverture_avant}
+\clearpage
+\RestoreReportGeometry
+
+
+% =========================
+% 2) PAGES INTÉRIEURES
+% =========================
+\begingroup
+\renewcommand{\familydefault}{\sfdefault}\normalfont
+\pagestyle{inner} % style fancy défini dans headers.tex
+
+% Page de titre (début numérotation)
+\setcounter{page}{1}
+\pagenumbering{arabic}
+\thispagestyle{inner}
+\input{pages/pages_titre}
+\clearpage
+
+% Page blanche AVEC entête/pied
+\BlankPageInner
+
+% Remerciements
+\input{contenu/contenu_remerciements}
+\clearpage
+
+
+% Table des matières
+\input{pages/pages_table_matieres}
+\clearpage
+
+% Table des figures
+\input{pages/pages_table_figures}
+\clearpage
+
+% Liste des tableaux
+\input{pages/pages_liste_tableaux}
+\clearpage
+
+% Page blanche AVEC entête/pied
+\BlankPageInner
+
+% Corps du rapport
+\input{contenu/contenu_corps}
+
+\thispagestyle{inner}
+
+% IMPORTANT : marque la dernière page intérieure pour pagination totale X/Y
+\label{LastInnerPage}
+
+\endgroup
+
+% =========================
+% 3) COUVERTURE ARRIÈRE
+% =========================
+\clearpage
+\FullBleed
+\thispagestyle{empty}
+\input{pages/pages_couverture_arriere}
+\clearpage
+\RestoreReportGeometry
+\printbibliography[title={Bibliographie}]
+\end{document}

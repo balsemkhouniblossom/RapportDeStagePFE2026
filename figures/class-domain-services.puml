@@ -1,0 +1,54 @@
+﻿@startuml
+top to bottom direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+title Principaux services metier du backend
+package "Acces et maintenance" #E0F2FE {
+ class AuthService <<service>>
+ class WorkOrdersService <<service>>
+ class WorkOrderReportService <<service>>
+ class MaintenancePlansService <<service>>
+ class MttrSourceService <<service>>
+ class MttrCalculationService <<service>>
+}
+package "Stocks, documents et connaissances" #FCE7F3 {
+ class StockMovementsService <<service>>
+ class DocumentsService <<service>>
+ class KnowledgeBaseService <<service>>
+}
+package "IoT et intelligence" #EDE9FE {
+ class DevicesService <<service>>
+ class TelemetryIngestionService <<service>>
+ class LiveStatusService <<service>>
+ class PredictiveMaintenanceService <<service>>
+ class AiAssistantService <<service>>
+ class AiAnomalyService <<service>>
+ class AiAnomalyFastApiClient <<service>>
+ class ImsInferenceService <<external service>>
+}
+package "Pilotage" #FFEDD5 {
+ class ReportsService <<service>>
+ class ReportSchedulerService <<service>>
+ class NotificationCenterService <<service>>
+ class DynamicContentTranslationService <<service>>
+ class AutomationSchedulerService <<service>>
+}
+' Force les domaines a s'empiler pour exploiter la hauteur de la page paysage.
+AuthService -[hidden]down-> StockMovementsService
+StockMovementsService -[hidden]down-> DevicesService
+DevicesService -[hidden]down-> ReportsService
+WorkOrdersService ..> WorkOrderReportService
+MttrSourceService ..> MttrCalculationService
+AiAnomalyService ..> AiAnomalyFastApiClient
+AiAnomalyFastApiClient ..> ImsInferenceService : HTTP securise
+ReportSchedulerService ..> ReportsService
+AutomationSchedulerService ..> WorkOrdersService
+AutomationSchedulerService ..> ReportSchedulerService
+AutomationSchedulerService ..> PredictiveMaintenanceService
+AutomationSchedulerService ..> NotificationCenterService
+@enduml
+
+
+

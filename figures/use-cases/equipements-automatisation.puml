@@ -1,0 +1,43 @@
+@startuml
+top to bottom direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam nodesep 28
+skinparam ranksep 35
+
+actor "Équipement IoT / Machine" as Device
+actor "Planificateur automatique" as Scheduler
+
+rectangle "Plateforme GMAO" {
+  package "Équipements connectés" {
+    usecase "Recevoir le heartbeat\nde l’équipement" as Heartbeat
+    usecase "Ingérer la télémétrie\nde l’équipement" as Telemetry
+    usecase "Ingérer une panne\nde l’équipement" as DeviceFault
+    usecase "Collecter les mesures\nde la machine" as Measures
+    usecase "Diffuser les événements\nen temps réel" as Realtime
+  }
+  package "Traitements planifiés" {
+    usecase "Générer la prochaine\néchéance" as NextDue
+    usecase "Générer les notifications\nautomatiques" as Notifications
+    usecase "Surveiller les alertes\ndes capteurs" as Alerts
+    usecase "Mettre à jour les KPI\nautomatiquement" as KPI
+    usecase "Exécuter les rapports\nplanifiés" as Reports
+  }
+}
+
+Device --> Heartbeat
+Device --> Telemetry
+Device --> DeviceFault
+Device --> Measures
+Heartbeat ..> Realtime : <<include>>
+Telemetry ..> Realtime : <<include>>
+DeviceFault ..> Realtime : <<include>>
+
+Scheduler --> NextDue
+Scheduler --> Notifications
+Scheduler --> Alerts
+Scheduler --> KPI
+Scheduler --> Reports
+Alerts ..> Notifications : <<include>>
+@enduml

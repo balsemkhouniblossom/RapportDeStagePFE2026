@@ -1,0 +1,29 @@
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*-blx.bib
+
+# Local tools and temporary review output
+.tools/
+tmp/
+
+# Generated verification copies and local archives
+main_verified.pdf
+Rapport_de_stage_PFE_version*.zip
+
+# Editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

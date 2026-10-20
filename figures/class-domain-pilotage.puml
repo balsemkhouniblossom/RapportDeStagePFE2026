@@ -1,0 +1,58 @@
+﻿@startuml
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+title Lubrification, pannes, notifications, rapports et automatisation
+package "Maintenance auxiliaire" #DCFCE7 {
+ class Module
+ class Machine
+ class WorkOrder
+ class User
+ class Lubrifiant
+ class LubrificationLog {
++date_application: Date
++quantite: Number
+}
+ class Panne {
++code_panne: String
++description: String
++gravite: String
+}
+ class PanneSolution
+ class Notification {
++type: NotificationType
++title: String
++is_read: Boolean
+}
+}
+package "Rapports et automatisation" #FFEDD5 {
+ class TranslationCache
+ class GeneratedReport {
++type: ReportType
++format: ReportFormat
++status: ReportStatus
+}
+ class ScheduledReport {
++frequency: ScheduleFrequency
++next_run_at: Date
+}
+ class SavedView
+ class AutomationJobLock
+}
+Module "1" -- "0..*" LubrificationLog
+Lubrifiant "1" -- "0..*" LubrificationLog
+User "1" -- "0..*" LubrificationLog
+Panne "1" -- "0..*" PanneSolution
+User "0..1" -- "0..*" Notification
+WorkOrder "0..1" -- "0..*" Notification
+Machine "0..1" -- "0..*" Notification
+User "1" -- "0..*" GeneratedReport
+ScheduledReport "0..1" -- "0..*" GeneratedReport
+User "1" -- "0..*" ScheduledReport
+User "1" -- "0..*" SavedView
+@enduml
+
+
+

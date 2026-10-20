@@ -1,0 +1,54 @@
+﻿@startuml
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+title Documents techniques et base de connaissances
+package "References metier" #F1F5F9 {
+ class Machine
+ class MachineType
+ class MaintenancePlan
+ class PreventiveTask
+ class WorkOrder
+ class InterventionReport
+ class Panne
+ class User
+}
+package "Documents" #FCE7F3 {
+ class DocumentEntity {
++document_id: String
++version: Number
++status: DocumentStatus
++storage_path: String
+}
+ class DocumentLifecycleEntry
+ class DocumentRejection
+}
+package "Connaissances" #EDE9FE {
+ class KnowledgeArticle {
++article_id: String
++title: String
++category: KnowledgeArticleCategory
++status: KnowledgeArticleStatus
+}
+ class KnowledgeArticleLifecycleEntry
+}
+Machine "1" -- "0..*" DocumentEntity
+MaintenancePlan "0..1" -- "0..*" DocumentEntity
+WorkOrder "0..1" -- "0..*" DocumentEntity
+InterventionReport "0..1" -- "0..*" DocumentEntity
+DocumentEntity "1" *-- "0..*" DocumentLifecycleEntry
+DocumentEntity "0..1" <-- "0..*" DocumentEntity : versions
+Machine "0..1" -- "0..*" DocumentRejection
+MachineType "0..1" -- "0..*" KnowledgeArticle
+Machine "0..1" -- "0..*" KnowledgeArticle
+MaintenancePlan "0..1" -- "0..*" KnowledgeArticle
+PreventiveTask "0..1" -- "0..*" KnowledgeArticle
+User "0..1" -- "0..*" KnowledgeArticle : auteur
+KnowledgeArticle "1" *-- "0..*" KnowledgeArticleLifecycleEntry
+Panne "0..*" .. "0..*" KnowledgeArticle : codes panne
+@enduml
+
+
+

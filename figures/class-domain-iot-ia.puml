@@ -1,0 +1,72 @@
+﻿@startuml
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+title IoT, supervision, maintenance predictive et intelligence artificielle
+package "IoT et supervision" #E0F2FE {
+ class Machine
+ class Module
+ class Capteur
+ class User
+ class Device {
++device_id: String
++type: DeviceType
++connection_status: DeviceConnectionStatus
+}
+ class Telemetry {
++timestamp: Date
++payload: Object
+}
+ class FaultEvent {
++code_panne: String
++severity: FaultEventSeverity
++resolved_at: Date
+}
+}
+package "Prediction et IA" #EDE9FE {
+ class PredictionModelVersion {
++model_type: PredictionModelType
++version: String
++status: PredictionModelVersionStatus
+}
+ class MachineHealthPrediction {
++health_score: Number
++anomaly_score: Number
++risk_level: PredictionRiskLevel
+}
+ class PredictionExplanation
+ class AiInteraction {
++question: String
++status: AiInteractionStatus
+}
+ class AiAssistantAnswer
+ class AiAnomalyAnalysis {
++analysis_id: String
++risk_score: Number
++risk_level: AiAnomalyRiskLevel
++validation_status: AiAnomalyValidationStatus
+}
+ class AiAnomalyComponentScores
+ class AiAnomalyModelResponse
+}
+Machine "1" -- "0..*" Device
+Device "1" -- "0..*" Telemetry
+Machine "1" -- "0..*" Telemetry
+Device "1" -- "0..*" FaultEvent
+Machine "1" -- "0..*" FaultEvent
+PredictionModelVersion "1" -- "0..*" MachineHealthPrediction
+Machine "1" -- "0..*" MachineHealthPrediction
+MachineHealthPrediction "1" *-- "1" PredictionExplanation
+User "1" -- "0..*" AiInteraction
+AiInteraction "0..1" *-- "0..1" AiAssistantAnswer
+Machine "1" -- "0..*" AiAnomalyAnalysis
+Capteur "0..1" -- "0..*" AiAnomalyAnalysis
+User "1" -- "0..*" AiAnomalyAnalysis : demande / validation
+AiAnomalyAnalysis "1" *-- "1" AiAnomalyComponentScores
+AiAnomalyAnalysis "1" *-- "1" AiAnomalyModelResponse
+@enduml
+
+
+

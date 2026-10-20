@@ -1,0 +1,83 @@
+@startuml
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam linetype ortho
+skinparam nodesep 30
+skinparam ranksep 40
+skinparam usecase {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  ArrowColor #334155
+}
+
+title Vue globale des cas d'utilisation - GMAO industrielle
+
+actor "Administrateur" as Admin
+actor "Opérateur" as Operator
+actor "Technicien" as Technician
+actor "Équipement IoT\n/ Machine" as Device
+actor "Services externes\n(messagerie, stockage, IA)" as Services
+actor "Automatisation\n(planificateur, temps réel)" as Automation
+
+rectangle "Système GMAO" {
+  usecase "Authentification\net comptes" as Auth
+  usecase "Administration\net référentiels" as AdminRef
+  usecase "Interventions et\nordres de travail" as WO
+  usecase "Espace\nopérateur" as OperatorSpace
+  usecase "Maintenance\npréventive" as Preventive
+  usecase "Maintenance\ncorrective" as Corrective
+  usecase "Espace\ntechnicien" as TechnicianSpace
+  usecase "Stocks et\nlubrification" as Stock
+  usecase "Documents et\nconnaissance" as Documents
+  usecase "Notifications et\nmessagerie" as Notifications
+  usecase "Capteurs, devices\net supervision" as Monitoring
+  usecase "KPI, prédiction\net rapports" as KPI
+  usecase "Analyse des\nanomalies IMS" as Anomalies
+}
+
+Admin --> Auth
+Admin --> AdminRef
+Admin --> WO
+Admin --> Preventive
+Admin --> Corrective
+Admin --> Stock
+Admin --> Documents
+Admin --> Monitoring
+Admin --> KPI
+Admin --> Anomalies
+
+Operator --> Auth
+Operator --> OperatorSpace
+Operator --> Preventive
+Operator --> Corrective
+Operator --> Documents
+Operator --> Notifications
+Operator --> KPI
+
+Technician --> Auth
+Technician --> TechnicianSpace
+Technician --> WO
+Technician --> Preventive
+Technician --> Corrective
+Technician --> Stock
+Technician --> Documents
+Technician --> Anomalies
+
+Device --> Monitoring
+Services --> Documents
+Services --> Notifications
+Services --> KPI
+Services --> Anomalies
+Automation --> Preventive
+Automation --> Notifications
+Automation --> Monitoring
+Automation --> KPI
+
+Preventive ..> WO : <<include>>
+Corrective ..> WO : <<include>>
+WO ..> Stock : <<extend>>
+Monitoring ..> Anomalies : <<extend>>
+KPI ..> Monitoring : <<include>>
+@enduml

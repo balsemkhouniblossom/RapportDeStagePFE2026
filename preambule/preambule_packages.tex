@@ -1,0 +1,124 @@
+% ===================== MARGES =====================
+\usepackage{geometry}
+\geometry{hmargin=2.5cm,vmargin=2.5cm}
+
+% ===================== ENCODING =====================
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+
+% ===================== TYPOGRAPHY =====================
+\usepackage{mathptmx} % Times-like font (required for reports)
+
+% ===================== GRAPHICS =====================
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc,positioning,arrows.meta}
+\usepackage{eso-pic}
+
+% ===================== PAGE CONTROL =====================
+\usepackage{lastpage}
+\usepackage{float}
+\usepackage{pdflscape}
+
+% ===================== HEADERS / FOOTERS =====================
+\usepackage{fancyhdr}
+\setlength{\headheight}{24pt}
+
+% Clean page style (safe default)
+\fancyhf{}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\pagestyle{fancy}
+
+% ===================== SPACING RULES =====================
+\usepackage{setspace}
+\setstretch{1.15}
+
+% Paragraph formatting
+\setlength{\parindent}{0.5cm}
+\setlength{\parskip}{0pt}
+
+% Avoid ugly page stretching
+\raggedbottom
+
+% ===================== SECTION FORMATTING =====================
+\usepackage{titlesec}
+
+\titleformat{\section}
+{\bfseries\fontsize{18pt}{22pt}\selectfont}
+{\thesection}
+{0.2cm}
+{}
+
+\titleformat{\subsection}
+{\bfseries\large}
+{\thesubsection}
+{0.2cm}
+{}
+
+\titleformat{\subsubsection}
+{\bfseries\normalsize}
+{\thesubsubsection}
+{0.2cm}
+{}
+
+% Display lower-level headings on their own lines for better readability.
+\titleformat{\paragraph}[block]
+{\bfseries\normalsize}
+{}
+{0pt}
+{}
+\titlespacing*{\paragraph}{0pt}{0.9\baselineskip}{0.3\baselineskip}
+
+\titleformat{\subparagraph}[block]
+{\bfseries\normalsize}
+{}
+{0pt}
+{}
+\titlespacing*{\subparagraph}{0.5cm}{0.7\baselineskip}{0.2\baselineskip}
+
+% ===================== FIGURES / CAPTIONS =====================
+\usepackage{caption}
+\captionsetup{
+    font=small,
+    labelfont=bf,
+    labelsep=space
+}
+
+% ===================== LISTS =====================
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep,topsep=2pt}
+\setlist[enumerate]{noitemsep,topsep=2pt}
+
+% ===================== TABLE OF CONTENTS =====================
+\usepackage{tocloft}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+% ===================== HYPERLINKS =====================
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=black,
+  citecolor=black
+}
+
+\usepackage[none]{hyphenat}
+% ===================== OPTIONAL SAFETY =====================
+% Prevent overfull pages with ugly spacing
+\emergencystretch=1em
+
+\usepackage{csquotes}
+% ===================== BIBLIOGRAPHY =====================
+% Lightweight bibliography setup
+\usepackage[backend=bibtex, style=numeric, sorting=none]{biblatex}
+\addbibresource{references.bib}
+
+\usepackage{makecell}
+\usepackage{tabularx}
+\usepackage{ragged2e}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{float}

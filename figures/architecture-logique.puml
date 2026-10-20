@@ -1,0 +1,74 @@
+@startuml
+top to bottom direction
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam nodesep 35
+skinparam ranksep 30
+skinparam defaultFontName Arial
+
+title Architecture logique de la plateforme GMAO
+
+package "Couche de présentation" #E0F2FE {
+  component "Application web Next.js\nInterfaces par rôle et navigation" as Frontend
+}
+
+package "Couche de communication" #F1F5F9 {
+  interface "API REST" as REST
+  interface "WebSockets" as WS
+  interface "MQTT" as MQTT
+}
+
+package "Couche applicative et métier - NestJS" #DCFCE7 {
+  component "Authentification\net utilisateurs" as Auth
+  component "Équipements\net documents" as Equipment
+  component "Maintenance préventive\net corrective" as Maintenance
+  component "Ordres de travail\net stocks" as WorkStock
+  component "Notifications, rapports\net tableaux de bord" as Reporting
+}
+
+package "Couche d’accès aux données" #FEF3C7 {
+  component "Mongoose / Repositories" as DataAccess
+}
+
+package "Couche de persistance" #FCE7F3 {
+  database "MongoDB\nDonnées métier" as Mongo
+  folder "Supabase Storage\nDocuments privés" as Supabase
+}
+
+package "Couche d’intelligence" #EDE9FE {
+  component "FastAPI\nAnalyse des anomalies IMS" as FastAPI
+  component "Gemini\nAssistant optionnel" as Gemini
+}
+
+package "Couche d’exploitation" #FFEDD5 {
+  component "Planification\nautomatique" as Scheduler
+  component "Journalisation\net métriques" as Observability
+}
+
+Frontend --> REST
+Frontend <--> WS
+MQTT --> Equipment
+REST --> Auth
+REST --> Equipment
+REST --> Maintenance
+REST --> WorkStock
+REST --> Reporting
+Auth --> DataAccess
+Equipment --> DataAccess
+Maintenance --> DataAccess
+WorkStock --> DataAccess
+Reporting --> DataAccess
+DataAccess --> Mongo
+Equipment --> Supabase
+Maintenance --> FastAPI
+Reporting --> Gemini
+Scheduler --> Maintenance
+Scheduler --> Reporting
+Observability ..> Auth
+Observability ..> Equipment
+Observability ..> Maintenance
+Observability ..> WorkStock
+Observability ..> Reporting
+@enduml

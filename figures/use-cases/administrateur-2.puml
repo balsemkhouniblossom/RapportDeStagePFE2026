@@ -1,0 +1,69 @@
+@startuml
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam linetype ortho
+skinparam nodesep 18
+skinparam ranksep 24
+skinparam defaultFontSize 15
+skinparam usecase {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  ArrowColor #334155
+}
+title Administrateur : supervision, prédiction et anomalies
+actor "Administrateur" as Admin
+rectangle "Plateforme GMAO" {
+  package "Capteurs et supervision" {
+    usecase "Gérer les capteurs" as SE
+    usecase "Gérer les mesures" as ME
+    usecase "Gérer les devices" as DE
+    usecase "Effectuer la rotation d'une clé device" as RK
+    usecase "Superviser l'état des machines en direct" as LM
+    usecase "Résoudre une alerte de panne en direct" as RA
+  }
+  package "KPI et prédiction" {
+    usecase "Consulter les KPI et le dashboard" as KP
+    usecase "Consulter la santé prédictive de la flotte" as PF
+    usecase "Consulter la prédiction d'une machine" as PM
+    usecase "Rafraîchir une prédiction" as PX
+    usecase "Entraîner le modèle prédictif" as TM2
+    usecase "Consulter l'assistant correctif" as AC
+  }
+  package "Analyse des anomalies IMS" {
+    usecase "Consulter les métadonnées du modèle IMS" as AM
+    usecase "Lancer une analyse IMS ponctuelle" as IA
+    usecase "Lancer une analyse IMS par lot" as BA
+    usecase "Consulter les analyses et l'historique" as VA
+    usecase "Filtrer les risques et validations" as FA
+    usecase "Confirmer ou rejeter une analyse" as XA
+  }
+}
+Admin --> SE
+Admin --> ME
+Admin --> DE
+Admin --> RK
+Admin --> LM
+Admin --> RA
+Admin --> KP
+Admin --> PF
+Admin --> PM
+Admin --> PX
+Admin --> TM2
+Admin --> AC
+Admin --> AM
+Admin --> IA
+Admin --> BA
+Admin --> VA
+Admin --> FA
+Admin --> XA
+DE ..> RK : <<extend>>
+LM ..> RA : <<extend>>
+PF ..> PM : <<include>>
+PM ..> PX : <<extend>>
+IA ..> VA : <<include>>
+BA ..> VA : <<include>>
+VA ..> FA : <<extend>>
+XA ..> VA : <<include>>
+@enduml

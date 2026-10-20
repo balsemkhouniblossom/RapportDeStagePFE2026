@@ -1,0 +1,140 @@
+%======================================================================
+% TEMPLATE OVERLEAF – RAPPORT DE STAGE / ALTERNANCE (INSA Rennes)
+%======================================================================
+%
+% Ce projet est structuré de manière MODULAIRE afin de :
+%   - faciliter la lecture du code
+%   - éviter les gros fichiers illisibles
+%   - permettre une personnalisation simple du rapport
+%
+% ➜ Vous n’avez normalement pas besoin de modifier le préambule.
+%
+% ---------------------------------------------------------------------
+% 1) STRUCTURE DU PROJET
+% ---------------------------------------------------------------------
+%
+% main.tex
+%   └─ Fichier principal
+%      - orchestre le document
+%      - appelle les différentes pages et contenus
+%      - ne contient pas de code graphique lourd
+%        (ex : pages de couverture)
+%
+% preambule/
+%   ├─ preambule_packages.tex   → packages LaTeX
+%   ├─ preambule_couleurs.tex   → couleurs utilisées
+%   ├─ preambule_headers.tex    → en-têtes / pieds de page
+%   └─ preambule_macros.tex     → commandes utiles
+%                                  (pages blanches, etc.)
+%
+% pages/
+%   ├─ pages_couverture_avant.tex
+%   ├─ pages_titre.tex
+%   ├─ pages_table_matieres.tex
+%   └─ pages_couverture_arriere.tex
+%   ...
+%
+% contenu/
+%   ├─ contenu_remerciements.tex
+%   └─ contenu_corps.tex
+%
+% figures/
+%   └─ toutees les images et logos
+%      (.png, .jpg, .pdf)
+%
+% ---------------------------------------------------------------------
+% 2) QUE MODIFIER EN PRIORITÉ ?
+% ---------------------------------------------------------------------
+%
+% ▶ Pour écrire votre rapport :
+%   - travaillez uniquement dans le dossier `contenu/`
+%   - supprimez simplement les \lipsum et ajoutez votre texte
+%   - ajoutez vos sections, figures, tableaux, équations, annexes
+%
+% ▶ Pour modifier les informations du rapport :
+%   - pages/pages_couverture_avant.tex
+%   - pages/pages_titre.tex
+%   - pages/pages_couverture_arriere.tex
+%
+% ▶ Pour ajouter / supprimer des parties :
+%   - modifiez uniquement `main.tex`
+%     (ajout ou retrait de \input{...})
+%
+% ---------------------------------------------------------------------
+% 3) PAGES BLANCHES
+% ---------------------------------------------------------------------
+%
+% /!\
+% Les pages blanches situées :
+%   - avant et après la page de titre
+%   - après la page de remerciements
+%   - après la table des matières
+%
+% servent à garantir une mise en page correcte type "livret"
+% lors de l’impression.
+% Si le rapport est transmis uniquement en PDF, elles peuvent être supprimées.
+%
+% Deux commandes sont disponibles :
+%
+%   \BlankPageEmpty
+%     → page blanche sans en-tête ni pied
+%
+%   \BlankPageInner
+%     → page blanche avec en-tête et pied
+%
+% Ces commandes sont définies dans :
+%   preambule/preambule_macros.tex
+%
+% ---------------------------------------------------------------------
+% 4) NUMÉROTATION DES PAGES
+% ---------------------------------------------------------------------
+%
+% - La numérotation commence à la page de titre
+% - Le format est : page X / total des pages du rapport
+% - La commande \label{LastInnerPage} DOIT rester
+%   sur la dernière page du contenu
+%   (juste avant la 4e de couverture)
+%
+% ---------------------------------------------------------------------
+% 5) TABLE DES MATIÈRES
+% ---------------------------------------------------------------------
+%
+% - Générée automatiquement avec \tableofcontents
+%
+% ---------------------------------------------------------------------
+% 6) CONSEILS GÉNÉRAUX
+% ---------------------------------------------------------------------
+%
+% ✔ Marges de 3 cm verticalement et horizontalement
+%   (modifiables dans preambule_packages.tex)
+%
+% ✔ Si vous n’avez pas de tuteur pédagogique INSA,
+%   supprimez la ligne correspondante dans
+%   pages_couverture_avant.tex (ligne ~96)
+%
+% ✔ Ne modifiez le préambule que si vous savez ce que vous faites
+%
+% ✔ Ne mettez jamais \documentclass ou \begin{document}
+%   ailleurs que dans main.tex
+%
+% ✔ Rangez toutes vos images dans le dossier `figures/`
+%
+% ✔ Compilez deux fois après modification de la table des matières
+%
+% ✔ COMPILEZ TOUJOURS DEPUIS DANS LE MAIN
+%
+% ✔ Si une page perd son en-tête, son pied de page
+%   ou sa numérotation, insérez :
+%       \thispagestyle{inner}
+%   dans main.tex à l’endroit concerné
+%
+% ✔ N’oubliez pas de remplacer le logo de l’entreprise :
+%   - sur la première de couverture
+%   - dans les en-têtes
+%
+% ---------------------------------------------------------------------
+% 7) PERSONNALISATION AVANCÉe
+% ---------------------------------------------------------------------
+%
+% - Polices, couleurs, marges : voir le dossier preambule/
+% - En-têtes / pieds de page : preambule_headers.tex

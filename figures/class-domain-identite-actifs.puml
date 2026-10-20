@@ -1,0 +1,57 @@
+﻿@startuml
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+title Identite, acces et actifs industriels
+package "Identite et acces" #E0F2FE {
+ class User {
++user_id: String
++email: String
++role: Role
++approval_status: ApprovalStatus
+}
+ class GoogleAuthHistoryEntry
+ class ApprovalHistoryEntry
+ class GoogleLoginExchange
+ class Counter
+}
+package "Actifs industriels" #DCFCE7 {
+ class MachineType
+ class Machine {
++machine_id: String
++serial_no: String
++status: String
+}
+ class MachineLifecycleEntry
+ class ModuleType
+ class Module {
++module_id: String
++localisation: String
+}
+ class Capteur {
++capteur_id: String
++type_capteur: String
++mqtt_topic: String
+}
+ class Mesure {
++valeur: Number
++timestamp: Date
+}
+}
+User "1" *-- "0..*" GoogleAuthHistoryEntry
+User "1" *-- "0..*" ApprovalHistoryEntry
+User "0..*" -- "0..*" Machine : affectation
+MachineType "1" -- "0..*" Machine
+MachineType "1" -- "0..*" ModuleType
+Machine "1" *-- "0..*" MachineLifecycleEntry
+Machine "1" *-- "0..*" Module
+ModuleType "1" -- "0..*" Module
+Module "0..1" <-- "0..*" Module : parent
+Module "1" *-- "0..*" Capteur
+Capteur "1" *-- "0..*" Mesure
+@enduml
+
+
+

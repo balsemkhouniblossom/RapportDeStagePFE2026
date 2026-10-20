@@ -1,0 +1,55 @@
+@startuml
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam linetype ortho
+skinparam defaultFontSize 15
+title Administrateur : utilisateurs, machines et maintenance préventive
+actor "Administrateur" as Admin
+rectangle "Plateforme GMAO" {
+package "Utilisateurs" {
+usecase "Gérer les utilisateurs" as AU
+usecase "Approuver ou rejeter les comptes" as AP
+usecase "Approuver ou rejeter en masse" as AB
+usecase "Gérer l'authentification Google" as AG
+usecase "Forcer la réinitialisation du mot de passe" as FR
+}
+package "Machines et modules" {
+usecase "Gérer les machines" as MM
+usecase "Consulter la fiche et la timeline machine" as MT
+usecase "Gérer les types de machines" as TY
+usecase "Gérer les modules" as MO
+usecase "Gérer les types de modules" as TM
+usecase "Gérer les pièces de module" as MP
+}
+package "Maintenance préventive" {
+usecase "Gérer les plans de maintenance" as PL
+usecase "Changer l'état d'un plan" as TP
+usecase "Gérer les checklists préventives" as CL
+usecase "Synchroniser les checklists depuis les plans" as SC
+}
+}
+Admin --> AU
+Admin --> AP
+Admin --> AB
+Admin --> AG
+Admin --> FR
+Admin --> MM
+Admin --> MT
+Admin --> TY
+Admin --> MO
+Admin --> TM
+Admin --> MP
+Admin --> PL
+Admin --> TP
+Admin --> CL
+Admin --> SC
+AU ..> AP : <<include>>
+AU ..> AB : <<extend>>
+AU ..> AG : <<extend>>
+AU ..> FR : <<extend>>
+MM ..> MT : <<extend>>
+PL ..> TP : <<include>>
+CL ..> SC : <<extend>>
+@enduml

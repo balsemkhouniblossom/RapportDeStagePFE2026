@@ -1,0 +1,34 @@
+@startuml
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam nodesep 28
+skinparam ranksep 35
+
+actor "Passerelle temps réel" as Gateway
+actor "Service de messagerie" as Mail
+actor "Stockage de fichiers" as Storage
+actor "Assistant IA Gemini" as Gemini
+actor "Service IA anomalies\nIMS / FastAPI" as Anomaly
+
+rectangle "Plateforme GMAO" {
+  usecase "Diffuser les événements\nen temps réel" as Realtime
+  usecase "Envoyer les courriels\ntransactionnels" as Email
+  usecase "Téléverser ou remplacer\nun document" as Upload
+  usecase "Consulter un document\nou son aperçu" as View
+  usecase "Proposer des\nrecommandations IA" as Recommend
+  usecase "Rafraîchir une prédiction" as Refresh
+  usecase "Entraîner le modèle\nprédictif" as Train
+  usecase "Exécuter l’inférence\ndéterministe" as Infer
+}
+
+Gateway --> Realtime
+Mail --> Email
+Storage --> Upload
+Storage --> View
+Gemini --> Recommend
+Gemini --> Refresh
+Gemini --> Train
+Anomaly --> Infer
+@enduml

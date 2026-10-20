@@ -1,0 +1,79 @@
+﻿@startuml
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+title Maintenance, ordres de travail, pieces et stocks
+package "Maintenance" #FEF3C7 {
+ class Machine
+ class Module
+ class User
+ class MaintenancePlan {
++plan_id: String
++frequence: Number
++status: MaintenancePlanStatus
+}
+ class MaintenancePlanLifecycleEntry
+ class PreventiveTask {
++instruction: String
++status: String
+}
+ class WorkOrder {
++ot_id: String
++type_maintenance: String
++status: String
++priorite: String
+}
+ class WorkOrderLifecycleEntry
+ class InterventionReport {
++date_debut: Date
++date_fin: Date
++cause_racine: String
+}
+ class KPI {
++mtbf_value: Number
++mttr_value: Number
++availability_rate: Number
+}
+}
+package "Catalogue et stock" #FCE7F3 {
+ class Catalogue {
++part_id: String
++nom_piece: String
+}
+ class Stock {
++quantite_en_stock: Number
++quantite_reservee: Number
+}
+ class StockMovement {
++type: StockMovementType
++quantity_delta: Number
+}
+ class ModulePieces
+ class OTPieces
+ class PartRequest {
++quantity: Number
++status: PartRequestStatus
+}
+}
+Module "1" -- "0..*" MaintenancePlan
+MaintenancePlan "1" *-- "0..*" MaintenancePlanLifecycleEntry
+MaintenancePlan "0..1" -- "0..*" PreventiveTask
+Machine "1" -- "0..*" WorkOrder
+Module "0..1" -- "0..*" WorkOrder
+User "0..1" -- "0..*" WorkOrder : technicien
+MaintenancePlan "0..1" -- "0..*" WorkOrder
+WorkOrder "1" *-- "0..*" WorkOrderLifecycleEntry
+WorkOrder "1" -- "0..*" InterventionReport
+Machine "1" -- "0..*" KPI
+Catalogue "1" -- "0..*" Stock
+Stock "1" -- "0..*" StockMovement
+WorkOrder "1" -- "0..*" PartRequest
+Catalogue "1" -- "0..*" PartRequest
+WorkOrder "1" -- "0..*" OTPieces
+Catalogue "1" -- "0..*" OTPieces
+@enduml
+
+
+
