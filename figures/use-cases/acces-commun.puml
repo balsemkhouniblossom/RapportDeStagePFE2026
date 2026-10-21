@@ -12,9 +12,8 @@ skinparam usecase {
   BorderColor #334155
   ArrowColor #334155
 }
-title Cas d'utilisation communs : visiteur et utilisateur authentifié
-actor "Visiteur" as Visitor
-actor "Utilisateur authentifié" as User
+title Cas d'utilisation communs de l'opérateur
+actor "Opérateur" as Operator
 rectangle "Plateforme GMAO" {
   package "Accès public" {
     usecase "S'inscrire" as R
@@ -45,30 +44,30 @@ rectangle "Plateforme GMAO" {
     usecase "Gérer les rapports planifiés" as SR
   }
 }
-Visitor --> R
-Visitor --> VE
-Visitor --> L
-Visitor --> GL
-Visitor --> GX
-Visitor --> FP
-Visitor --> VT
-Visitor --> RP
-Visitor --> H
-User --> CP
-User --> RF
-User --> LO
-User --> PR
-User --> VN
-User --> UN
-User --> RN
-User --> DN
-User --> SV
-User --> KB
-User --> KS
-User --> TR
-User --> GR
-User --> DR
-User --> SR
+Operator --> R
+Operator --> VE
+Operator --> L
+Operator --> GL
+Operator --> GX
+Operator --> FP
+Operator --> VT
+Operator --> RP
+Operator --> H
+Operator --> CP
+Operator --> RF
+Operator --> LO
+Operator --> PR
+Operator --> VN
+Operator --> UN
+Operator --> RN
+Operator --> DN
+Operator --> SV
+Operator --> KB
+Operator --> KS
+Operator --> TR
+Operator --> GR
+Operator --> DR
+Operator --> SR
 R ..> VE : <<include>>
 GL ..> GX : <<include>>
 RP ..> VT : <<include>>
