@@ -620,9 +620,9 @@ Les besoins non fonctionnels définissent les propriétés de qualité et les co
 
 \subsection{Diagramme global des cas d’utilisation}
 
-Le diagramme global des cas d’utilisation présente les principales interactions entre les acteurs et la plateforme. Il met en évidence la répartition des fonctionnalités entre l’administrateur, le technicien et l’opérateur ainsi que les échanges avec les équipements connectés et les services externes.
+Le diagramme global des cas d’utilisation présente les services attendus par les acteurs, et non l’organisation interne du logiciel. Les acteurs sont placés à l’extérieur de la frontière du système, tandis que chaque ellipse exprime un objectif observable (« s’authentifier », « gérer », « superviser », etc.). Les relations entre acteur et cas d’utilisation sont des associations ; les relations \texttt{include} sont réservées aux comportements obligatoires réutilisés et les relations \texttt{extend} aux comportements optionnels.
 
-Le diagramme de la figure~\ref{fig:global-use-case} est construit à partir du nouvel audit fonctionnel de la plateforme. Afin de préserver sa lisibilité, les opérations détaillées sont regroupées selon les principaux domaines du système. Les figures suivantes présentent ensuite les cas d’utilisation propres à chaque acteur, tandis que les scénarios de chaque module seront détaillés dans les Sprints correspondants.
+Le diagramme de la figure~\ref{fig:global-use-case} est construit à partir de l’audit fonctionnel de la plateforme et respecte la notation UML 2.5.1 \cite{uml251}. Afin de préserver sa lisibilité, seuls les objectifs principaux sont représentés. Les cas détaillés par acteur sont présentés dans les figures suivantes, tandis que les scénarios sont décrits dans les Sprints correspondants.
 
 \begin{landscape}
 \begin{figure}[H]
@@ -1145,7 +1145,7 @@ Afin de garantir une architecture logicielle robuste, plusieurs frameworks ont �
 
 \subsubsection{Modèle de données et diagramme de classes}
 
-Le diagramme de classes représente la structure conceptuelle de la plateforme et les principales relations entre les entités métier. Afin de préserver sa lisibilité, la figure~\ref{fig:diagramme-classes} présente une vue synthétique du modèle. Le diagramme technique issu de l’audit d’implémentation est ensuite décliné en six vues fonctionnelles dans les figures~\ref{fig:diagramme-classes-detaille-1} à~\ref{fig:diagramme-classes-detaille-6}.
+Le diagramme de classes représente la structure statique et conceptuelle de la plateforme : classes métier, attributs typés, multiplicités et relations. Les services applicatifs sont indiqués séparément par le stéréotype \texttt{<<service>>} et leurs dépendances sont en pointillés ; ils ne sont donc pas confondus avec les entités persistantes. Afin de préserver sa lisibilité, la figure~\ref{fig:diagramme-classes} présente une vue synthétique du modèle. Le diagramme technique issu de l’audit d’implémentation est ensuite décliné en six vues fonctionnelles dans les figures~\ref{fig:diagramme-classes-detaille-1} à~\ref{fig:diagramme-classes-detaille-6}.
 
 Les principales entités sont regroupées selon les domaines suivants :
 
@@ -1162,7 +1162,7 @@ Une machine appartient à un type et peut contenir plusieurs modules. Les module
 
 Les analyses d’anomalies sont associées à une machine et, lorsqu’il est identifié, à un capteur. Elles conservent le score de risque, la version du modèle et l’état de validation humaine. Cette organisation permet de retracer les résultats produits et les décisions prises par les administrateurs ou les techniciens.
 
-MongoDB étant une base orientée documents, les relations UML sont implémentées au moyen de références entre documents ou de données imbriquées selon les besoins du domaine.
+MongoDB étant une base orientée documents, les relations UML sont implémentées au moyen de références entre documents ou de données imbriquées selon les besoins du domaine. Les multiplicités décrivent le modèle métier attendu ; elles ne constituent pas une représentation directe des collections MongoDB.
 
 \begin{landscape}
 \begin{figure}[H]
@@ -1490,7 +1490,6 @@ utilisateur}
 \subsection{Réalisation}
 
 \textbf{Conclusion}
-
 
 
 

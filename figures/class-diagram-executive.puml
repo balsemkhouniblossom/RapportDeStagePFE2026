@@ -10,44 +10,45 @@ skinparam class {
   BorderColor #334155
   ArrowColor #334155
 }
+skinparam classAttributeIconSize 0
 
 title Diagramme de classes synthétique de la plateforme GMAO
 
 package "Identité et accès" #E0F2FE {
   class User {
-    +id
-    +nom
-    +email
-    +role
-    +statut
+    +id : UUID
+    +nom : String
+    +email : String
+    +role : Role
+    +statut : ApprovalStatus
   }
 }
 
 package "Équipements" #DCFCE7 {
   class MachineType
   class Machine {
-    +id
-    +nom
-    +statut
+    +id : UUID
+    +nom : String
+    +statut : String
   }
   class ModuleType
   class Module
   class Capteur
   class Mesure {
-    +valeur
-    +horodatage
+    +valeur : Decimal
+    +horodatage : DateTime
   }
 }
 
 package "Maintenance" #FEF3C7 {
   class MaintenancePlan {
-    +périodicité
-    +statut
+    +périodicité : Duration
+    +statut : MaintenancePlanStatus
   }
   class WorkOrder {
-    +type
-    +priorité
-    +statut
+    +type : String
+    +priorité : String
+    +statut : String
   }
   class InterventionReport
   class KPI
@@ -56,16 +57,16 @@ package "Maintenance" #FEF3C7 {
 package "Stocks et documents" #FCE7F3 {
   class Catalogue
   class Stock {
-    +quantité
-    +seuilMinimal
+    +quantité : Integer
+    +seuilMinimal : Integer
   }
   class PartRequest {
-    +quantité
-    +statut
+    +quantité : Integer
+    +statut : PartRequestStatus
   }
   class DocumentEntity {
-    +version
-    +statut
+    +version : String
+    +statut : DocumentStatus
   }
 }
 
@@ -77,13 +78,13 @@ package "Pilotage" #FFEDD5 {
 
 package "Maintenance prédictive" #EDE9FE {
   class MachineHealthPrediction {
-    +score
-    +niveauRisque
+    +score : Decimal
+    +niveauRisque : String
   }
   class AiAnomalyAnalysis {
-    +scoreRisque
-    +versionModèle
-    +validationHumaine
+    +scoreRisque : Decimal
+    +versionModèle : String
+    +validationHumaine : Boolean
   }
   class AiInteraction
 }
@@ -97,7 +98,7 @@ Capteur "1" *-- "0..*" Mesure : produit
 Machine "1" -- "0..*" MaintenancePlan : possède
 Machine "1" -- "0..*" WorkOrder : concerne
 MaintenancePlan "0..1" -- "0..*" WorkOrder : génère
-User "1" -- "0..*" WorkOrder : technicien
+User "0..1" -- "0..*" WorkOrder : technicien
 WorkOrder "1" *-- "0..1" InterventionReport : documente
 WorkOrder "1" -- "0..*" PartRequest : nécessite
 Catalogue "1" -- "0..*" Stock : référence
