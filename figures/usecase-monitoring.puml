@@ -1,0 +1,60 @@
+@startuml
+left to right direction
+skinparam dpi 150
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 26
+skinparam nodesep 30
+skinparam ranksep 38
+skinparam usecase {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  ArrowColor #334155
+}
+skinparam actor {
+  BackgroundColor #FFFFFF
+  BorderColor #334155
+}
+skinparam rectangle {
+  BackgroundColor #FFFFFF
+  BorderColor #94A3B8
+}
+
+actor "Administrateur" as Admin
+actor "Technicien" as Technician
+actor "Équipement\nconnecté ou capteur" as Device
+actor "Service d'analyse\ndes anomalies" as AIService
+
+rectangle "Surveillance et maintenance prédictive" {
+  usecase "Gérer les capteurs\net les équipements" as UC_Devices
+  usecase "Recevoir les mesures\net les événements" as UC_Ingest
+  usecase "Superviser les machines\nen temps réel" as UC_Live
+  usecase "Consulter la santé\nd'une machine" as UC_Health
+  usecase "Lancer une analyse\nd'anomalies" as UC_Analyze
+  usecase "Consulter l'historique\ndes analyses" as UC_History
+  usecase "Valider ou rejeter\nune analyse" as UC_Validate
+  usecase "Consulter l'assistant\nintelligent" as UC_Assistant
+}
+
+Admin --> UC_Devices
+Admin --> UC_Live
+Admin --> UC_Health
+Admin --> UC_Analyze
+Admin --> UC_History
+Admin --> UC_Validate
+Admin --> UC_Assistant
+
+Technician --> UC_Live
+Technician --> UC_Health
+Technician --> UC_Analyze
+Technician --> UC_History
+Technician --> UC_Validate
+
+Device --> UC_Ingest
+AIService --> UC_Analyze
+
+UC_Ingest ..> UC_Live : <<include>>
+UC_Analyze ..> UC_History : <<include>>
+@enduml

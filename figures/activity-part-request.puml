@@ -1,0 +1,37 @@
+@startuml
+skinparam dpi 160
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 30
+skinparam ActivityBackgroundColor #F8FAFC
+skinparam ActivityBorderColor #334155
+skinparam ActivityDiamondBackgroundColor #EEF2F7
+skinparam ActivityDiamondBorderColor #334155
+skinparam ArrowColor #334155
+
+start
+:Créer une demande de pièces\npour un ordre de travail;
+
+if (Pièce disponible en quantité suffisante ?) then (oui)
+  :Enregistrer la demande\net réserver la quantité;
+  :Statut : RESERVED;
+
+  if (Pièce effectivement utilisée ?) then (oui)
+    :Déclarer la consommation;
+    :Décrémenter le stock;
+    :Libérer la réservation;
+    :Statut : FULFILLED;
+    :Conserver le mouvement de stock;
+  else (non)
+    :Annuler la demande;
+    :Libérer la réservation;
+    :Statut : CANCELLED;
+  endif
+
+else (non)
+  :Signaler l'indisponibilité;
+  :Maintenir la demande\nen attente : PENDING;
+endif
+
+stop
+@enduml

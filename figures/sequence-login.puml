@@ -1,0 +1,44 @@
+@startuml
+autonumber
+skinparam dpi 160
+skinparam shadowing false
+skinparam sequenceMessageAlign center
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 16
+skinparam sequence {
+  ArrowColor #334155
+  LifeLineBorderColor #94A3B8
+  LifeLineBackgroundColor #EEF2F7
+  ParticipantBorderColor #334155
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontStyle bold
+  GroupBorderColor #94A3B8
+  GroupHeaderFontStyle bold
+}
+
+actor "Utilisateur" as U
+participant "Frontend\nNext.js" as F
+participant "API Auth\nNestJS" as A
+participant "Service\nUtilisateurs" as S
+database "MongoDB" as DB
+
+U -> F : Saisir l'email et le mot de passe
+F -> A : POST /auth/login
+A -> S : Rechercher le compte
+S -> DB : Consulter l'utilisateur
+DB --> S : Compte et rôle
+S --> A : Utilisateur trouvé
+A -> A : Vérifier le mot de passe\net l'état du compte
+
+alt Identifiants valides et compte approuvé
+    A -> A : Générer l'access token\net le refresh token
+    A --> F : Réponse sécurisée
+    F --> U : Redirection vers le tableau de bord
+else Identifiants invalides
+    A --> F : Erreur d'authentification
+    F --> U : Message d'erreur
+else Compte en attente ou rejeté
+    A --> F : Accès non autorisé
+    F --> U : Information sur l'état du compte
+end
+@enduml

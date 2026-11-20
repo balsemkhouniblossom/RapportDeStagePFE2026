@@ -1,0 +1,18 @@
+@startuml
+skinparam dpi 160
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 16
+skinparam ArrowColor #334155
+skinparam StateBackgroundColor #F8FAFC
+skinparam StateBorderColor #334155
+
+[*] --> PENDING : Création de la demande
+PENDING --> RESERVED : Quantité disponible\net réservée
+PENDING --> CANCELLED : Refus ou abandon
+RESERVED --> FULFILLED : Consommation enregistrée
+RESERVED --> PENDING : Réservation libérée
+RESERVED --> CANCELLED : Annulation
+FULFILLED --> [*]
+CANCELLED --> [*]
+@enduml

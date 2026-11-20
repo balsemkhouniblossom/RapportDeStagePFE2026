@@ -1,0 +1,44 @@
+@startuml
+skinparam dpi 150
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 24
+skinparam ArrowColor #334155
+skinparam activity {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  FontColor #1E293B
+}
+skinparam swimlane {
+  BorderColor #94A3B8
+  TitleFontColor #0F172A
+  TitleBackgroundColor #EEF2F7
+}
+
+|Dépôt|
+start
+:Push ou pull request;
+:Hygiène du dépôt;
+
+|Qualité|
+:Frontend : lint, typage, tests;
+:Tests Playwright;
+:Backend : tests unitaires;
+:Index MongoDB et compilation;
+:Tests de bout en bout;
+
+|Sécurité|
+:Audit npm;
+:Trivy HIGH et CRITICAL;
+:SonarCloud et quality gate;
+
+|Livraison|
+if (Pipeline conforme ?) then (oui)
+  :Déploiement Render et Vercel;
+  :Attente de santé;
+  :Production à jour;
+else (non)
+  :Échec signalé à l'équipe;
+endif
+stop
+@enduml

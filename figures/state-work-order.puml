@@ -1,0 +1,26 @@
+@startuml
+skinparam dpi 160
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 16
+skinparam ArrowColor #334155
+skinparam StateBackgroundColor #F8FAFC
+skinparam StateBorderColor #334155
+
+state "Créé" as CREE
+state "Affecté" as AFFECTE
+state "En cours" as ENCOURS
+state "En attente\nde pièces" as ATTENTE
+state "Clôturé" as CLOTURE
+state "Validé" as VALIDE
+
+[*] --> CREE : Signalement de panne\nou planification préventive
+CREE --> AFFECTE : Affectation à un technicien
+AFFECTE --> ENCOURS : Prise en charge\net démarrage
+ENCOURS --> ATTENTE : Indisponibilité\ndes pièces
+ATTENTE --> ENCOURS : Pièces disponibles
+ENCOURS --> CLOTURE : Rapport renseigné\net intervention terminée
+CLOTURE --> VALIDE : Contrôle par\nl'administrateur
+CLOTURE --> ENCOURS : Correction demandée
+VALIDE --> [*]
+@enduml

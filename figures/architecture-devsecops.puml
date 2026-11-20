@@ -1,0 +1,50 @@
+﻿@startuml
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam defaultFontName "DejaVu Sans"
+skinparam defaultFontSize 11
+skinparam packageTitleFontSize 12
+
+package "Développement" {
+  [Poste de\ndéveloppement] as Dev
+  [Dépôt Git\nGitHub] as Git
+}
+
+package "Intégration continue" {
+  [Workflows\nGitHub Actions] as CI
+  [Tests backend\nJest et e2e] as Jest
+  [Tests frontend\nPlaywright] as FrontTests
+  [Analyse qualité\nSonarCloud] as Sonar
+  [Audit des dépendances\net Trivy] as Sec
+}
+
+package "Production" {
+  [Vercel\nNext.js] as Vercel
+  [Render\nNestJS] as Backend
+  [Render\nFastAPI] as AI
+  database "MongoDB\nAtlas" as DB
+  [Supabase\nStorage] as Storage
+}
+
+package "Supervision" {
+  [Prometheus] as Prom
+  [Grafana] as Grafana
+  [Sentry] as Sentry
+}
+
+Dev --> Git : Commit et poussée
+Git --> CI : Déclenchement
+CI --> Jest
+CI --> FrontTests
+CI --> Sonar
+CI --> Sec
+CI --> Vercel : Déploiement\nsi contrôles réussis
+CI --> Backend : Crochet de\ndéploiement
+Backend --> DB : Données
+Backend --> Storage : Documents
+Backend --> AI : Analyse\nauthentifiée
+Backend --> Sentry : Erreurs 5xx
+Vercel --> Sentry : Erreurs\nd'interface
+Prom --> Backend : Collecte\n/metrics
+Grafana --> Prom : Requêtes
+@enduml

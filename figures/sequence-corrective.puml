@@ -1,0 +1,56 @@
+@startuml
+autonumber
+skinparam dpi 160
+skinparam shadowing false
+skinparam sequenceMessageAlign center
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 15
+skinparam sequence {
+  ArrowColor #334155
+  LifeLineBorderColor #94A3B8
+  LifeLineBackgroundColor #EEF2F7
+  ParticipantBorderColor #334155
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontStyle bold
+  GroupBorderColor #94A3B8
+  GroupHeaderFontStyle bold
+}
+
+actor "Technicien" as T
+participant "Interface\nNext.js" as F
+participant "API Ordres\nde travail" as API
+participant "Service\ndes stocks" as S
+database "MongoDB" as DB
+
+T -> F : Prendre en charge l'ordre de travail
+F -> API : Revendiquer l'ordre de travail
+API -> DB : Vérifier l'état et l'affectation
+DB --> API : Ordre de travail disponible
+API --> F : Prise en charge confirmée
+
+T -> F : Démarrer l'intervention
+F -> API : Changer l'état de l'ordre
+API -> DB : Enregistrer la date de début
+
+T -> F : Demander des pièces
+F -> API : Créer la demande de pièces
+API -> S : Vérifier la disponibilité
+S -> DB : Consulter le stock
+
+alt Pièces disponibles
+    S --> API : Disponibilité confirmée
+    API -> DB : Enregistrer la demande
+    API --> F : Demande acceptée
+else Pièces indisponibles
+    S --> API : Quantité insuffisante
+    API -> DB : Mettre l'intervention\nen attente de pièces
+    API --> F : Intervention suspendue
+end
+
+T -> F : Renseigner le rapport\net les pièces consommées
+F -> API : Enregistrer l'intervention
+API -> S : Décrémenter le stock
+S -> DB : Mettre à jour les quantités
+API -> DB : Enregistrer le rapport
+API --> F : Intervention clôturée
+@enduml

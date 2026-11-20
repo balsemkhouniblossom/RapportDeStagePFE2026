@@ -1,0 +1,27 @@
+@startuml
+skinparam dpi 160
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 16
+skinparam ArrowColor #334155
+skinparam StateBackgroundColor #F8FAFC
+skinparam StateBorderColor #334155
+
+state "Brouillon\nDRAFT" as DRAFT
+state "Actif\nACTIVE" as ACTIVE
+state "Suspendu\nPAUSED" as PAUSED
+state "Terminé\nCOMPLETED" as COMPLETED
+state "Archivé\nARCHIVED" as ARCHIVED
+
+[*] --> DRAFT : Création
+DRAFT --> ACTIVE : Activation
+ACTIVE --> PAUSED : Suspension
+PAUSED --> ACTIVE : Reprise
+ACTIVE --> COMPLETED : Fin de planification
+PAUSED --> ARCHIVED : Archivage
+COMPLETED --> ARCHIVED : Archivage
+ACTIVE --> ARCHIVED : Archivage
+DRAFT --> ARCHIVED : Abandon
+
+ARCHIVED --> [*]
+@enduml

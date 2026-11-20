@@ -3,74 +3,88 @@ left to right direction
 skinparam shadowing false
 skinparam packageStyle rectangle
 skinparam actorStyle awesome
-skinparam linetype polyline
-skinparam nodesep 35
+skinparam linetype ortho
+skinparam nodesep 8
 skinparam ranksep 45
+skinparam defaultFontName Arial
+skinparam defaultFontSize 40
+skinparam titleFontSize 40
+skinparam legendFontSize 40
+skinparam ArrowThickness 2.2
 skinparam usecase {
-  BackgroundColor #F8FAFC
-  BorderColor #334155
-  ArrowColor #334155
+  BackgroundColor #FFFFFF
+  BorderColor #333333
+  ArrowColor #333333
+  FontSize 40
+}
+skinparam rectangle {
+  BackgroundColor #FBFBFB
+  BorderColor #777777
 }
 
-title Vue globale des cas d'utilisation - GMAO industrielle
+title Diagramme global des cas d'utilisation
 
-actor "Administrateur" as Admin
-actor "Opérateur" as Operator
-actor "Technicien" as Technician
-actor "Équipement connecté" as Device
-actor "Service de messagerie" as Mail
-actor "Service de stockage" as Storage
-actor "Service d'analyse IA" as AI
-actor "Planificateur automatique" as Scheduler
+actor "Administrateur" as A
+actor "Technicien" as T
+actor "Opérateur" as O
 
-rectangle "Système GMAO" {
- usecase "S'authentifier et gérer\nson compte" as Auth
- usecase "Administrer les utilisateurs\net les référentiels" as AdminRef
- usecase "Gérer les équipements\net les documents" as Assets
- usecase "Planifier et exécuter la\nmaintenance préventive" as Preventive
- usecase "Déclarer et traiter une\nmaintenance corrective" as Corrective
- usecase "Gérer les ordres de travail\net les pièces" as WO
- usecase "Consulter les rapports\net les indicateurs" as Reporting
- usecase "Recevoir les\nnotifications" as Notifications
- usecase "Superviser les équipements\nconnectés" as Monitoring
- usecase "Analyser et valider les\nanomalies" as Anomalies
+rectangle "Plateforme GMAO d'IPROTEX Tunisie" {
+
+  package "Administration" {
+    usecase "Gérer les utilisateurs" as UC1
+    usecase "Gérer les équipements\net les référentiels" as UC2
+    usecase "Gérer les documents\ntechniques" as UC3
+  }
+
+  package "Maintenance" {
+    usecase "Gérer les plans\npréventifs" as UC4
+    usecase "Exécuter une intervention\npréventive" as UC5
+    usecase "Renseigner la liste\nde contrôle" as UC6
+    usecase "Signaler une panne" as UC7
+    usecase "Créer l'ordre de travail\ncorrectif" as UC8
+    usecase "Créer et affecter\nun ordre de travail" as UC9
+    usecase "Traiter un ordre\nde travail" as UC10
+    usecase "Valider une\nintervention" as UC11
+    usecase "Générer la prochaine\néchéance préventive" as UC12
+  }
+
+  package "Stocks et suivi" {
+    usecase "Gérer les stocks\net les pièces" as UC13
+    usecase "Demander des pièces" as UC14
+    usecase "Consulter le tableau\nde bord" as UC15
+  }
 }
 
-Admin -- Auth
-Admin -- AdminRef
-Admin -- Assets
-Admin -- Preventive
-Admin -- Corrective
-Admin -- WO
-Admin -- Reporting
-Admin -- Notifications
-Admin -- Monitoring
-Admin -- Anomalies
+A --> UC1
+A --> UC2
+A --> UC3
+A --> UC4
+A --> UC9
+A --> UC11
+A --> UC13
+A --> UC15
 
-Operator -- Auth
-Operator -- Assets
-Operator -- Preventive
-Operator -- Corrective
-Operator -- Reporting
-Operator -- Notifications
+T -up-> UC10
+T -up-> UC11
+T -up-> UC14
+T -up-> UC15
 
-Technician -- Auth
-Technician -- Assets
-Technician -- Preventive
-Technician -- Corrective
-Technician -- WO
-Technician -- Reporting
-Technician -- Notifications
-Technician -- Anomalies
+O --> UC4
+O --> UC5
+O --> UC7
+O --> UC14
+O --> UC15
 
-Device -- Monitoring
-Mail -- Notifications
-Storage -- Assets
-AI -- Anomalies
-Scheduler -- Preventive
-Scheduler -- Notifications
+' --- Relations entre cas d'utilisation ---
+UC5 ..> UC6  : <<include>>
+UC7 ..> UC8  : <<include>>
+UC12 ..> UC11 : <<extend>>
+UC14 ..> UC10 : <<extend>>
 
-Corrective ..> WO : <<include>>
-Preventive ..> WO : <<include>>
-Anomalies ..> Monitoring : <<extend>>
+legend right
+  <<include>> : comportement obligatoire
+  <<extend>>  : comportement conditionnel,
+                 déclenché dans certains cas
+end legend
+
 @enduml

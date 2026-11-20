@@ -1,0 +1,57 @@
+@startuml
+top to bottom direction
+skinparam dpi 160
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 16
+skinparam nodesep 22
+skinparam ranksep 36
+skinparam usecase {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  ArrowColor #334155
+}
+skinparam actor {
+  BackgroundColor #FFFFFF
+  BorderColor #334155
+}
+skinparam rectangle {
+  BackgroundColor #FFFFFF
+  BorderColor #94A3B8
+}
+
+actor "Administrateur" as Admin
+actor "Technicien" as Technician
+actor "Opérateur" as Operator
+
+rectangle "Plateforme GMAO -- Gestion des équipements" {
+  usecase "Gérer les types\nde machines" as UC_Type
+  usecase "Gérer les machines" as UC_Machine
+  usecase "Gérer les modules" as UC_Module
+  usecase "Gérer les capteurs" as UC_Sensor
+  usecase "Consulter la fiche\net l'historique" as UC_Timeline
+  usecase "Gérer les documents\ntechniques" as UC_Doc
+  usecase "Consulter les manuels\net aperçus" as UC_View
+}
+
+Admin --> UC_Type
+Admin --> UC_Machine
+Admin --> UC_Module
+Admin --> UC_Sensor
+Admin --> UC_Timeline
+Admin --> UC_Doc
+
+Technician --> UC_Timeline
+Technician --> UC_View
+
+Operator --> UC_Timeline
+Operator --> UC_View
+
+UC_Machine ..> UC_Type : <<include>>
+UC_Module ..> UC_Machine : <<include>>
+UC_Doc ..> UC_Machine : <<include>>
+UC_View ..> UC_Doc : <<include>>
+@enduml
+

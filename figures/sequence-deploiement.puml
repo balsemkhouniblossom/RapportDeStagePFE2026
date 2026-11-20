@@ -1,0 +1,34 @@
+@startuml
+autonumber
+skinparam dpi 150
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 26
+skinparam sequenceMessageAlign center
+skinparam ArrowColor #334155
+skinparam participant {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+}
+
+actor "Développeur" as Dev
+participant "GitHub\nActions" as CI
+participant "Render\n(backend)" as Render
+participant "Vercel\n(frontend)" as Vercel
+participant "Test de\nfumée" as Smoke
+participant "Prometheus" as Prom
+
+Dev -> CI : Fusion sur main
+CI -> CI : Exécution des contrôles
+CI -> CI : Quality gate validé
+CI -> Render : Déclenchement du déploiement
+CI -> Vercel : Déclenchement du\ndéploiement
+Render --> CI : Build accepté
+CI -> Smoke : Vérification de /health\net /health/api
+Smoke --> CI : Statut conforme
+CI -> Vercel : Vérification de la réponse HTTP
+Vercel --> CI : Code 200
+CI --> Dev : Déploiement confirmé\net journalisé
+Prom -> Render : Collecte /health/metrics
+Render --> Prom : Métriques applicatives
+@enduml

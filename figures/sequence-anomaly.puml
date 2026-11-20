@@ -1,0 +1,35 @@
+@startuml
+autonumber
+skinparam dpi 150
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 30
+skinparam sequenceMessageAlign center
+skinparam ArrowColor #334155
+skinparam ParticipantBackgroundColor #F8FAFC
+skinparam ParticipantBorderColor #334155
+skinparam DatabaseBackgroundColor #F8FAFC
+skinparam DatabaseBorderColor #334155
+skinparam ActorBackgroundColor #FFFFFF
+skinparam ActorBorderColor #334155
+
+actor "Administrateur ou\ntechnicien" as U
+participant "Frontend\nNext.js" as F
+participant "Backend\nNestJS" as B
+participant "Service FastAPI\nd'analyse IMS" as AI
+database "MongoDB" as DB
+
+U -> F : Sélectionner la machine\net les données à analyser
+F -> B : Demander une analyse
+B -> B : Vérifier les autorisations\net la machine concernée
+B -> AI : Transmettre les mesures\navec le jeton de service
+AI -> AI : Exécuter le modèle\nd'anomalies
+AI --> B : Score, niveau de risque\net raisons détectées
+B -> DB : Enregistrer l'analyse\navec l'état PENDING
+B --> F : Résultat de l'analyse
+F --> U : Afficher le résultat\net demander une validation
+
+alt Anomalie persistante
+    B -> DB : Créer une notification
+end
+@enduml

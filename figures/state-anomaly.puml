@@ -1,0 +1,15 @@
+@startuml
+skinparam dpi 150
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 30
+skinparam ArrowColor #334155
+skinparam StateBackgroundColor #F8FAFC
+skinparam StateBorderColor #334155
+
+[*] --> PENDING : Analyse enregistrée
+PENDING --> CONFIRMED : Anomalie confirmée\npar un utilisateur habilité
+PENDING --> REJECTED : Faux positif ou\nanomalie écartée
+CONFIRMED --> [*]
+REJECTED --> [*]
+@enduml

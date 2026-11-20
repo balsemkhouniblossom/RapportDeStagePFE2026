@@ -1,0 +1,43 @@
+@startuml
+autonumber
+skinparam dpi 160
+skinparam shadowing false
+skinparam sequenceMessageAlign center
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 16
+skinparam sequence {
+  ArrowColor #334155
+  LifeLineBorderColor #94A3B8
+  LifeLineBackgroundColor #EEF2F7
+  ParticipantBorderColor #334155
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontStyle bold
+  GroupBorderColor #94A3B8
+  GroupHeaderFontStyle bold
+}
+
+actor "Administrateur" as A
+participant "Frontend\nNext.js" as F
+participant "API Machines\nNestJS" as API
+participant "Garde\nd'autorisation" as G
+database "MongoDB" as DB
+
+A -> F : Saisir les informations de la machine
+F -> API : POST /machines
+API -> G : Vérifier le jeton et le rôle
+G --> API : Autorisation accordée
+
+API -> API : Valider les champs obligatoires
+API -> DB : Vérifier l'unicité de machine_id
+DB --> API : Résultat de la vérification
+
+alt Données valides
+    API -> DB : Enregistrer la machine
+    DB --> API : Machine créée
+    API --> F : Confirmation et fiche créée
+    F --> A : Message de succès
+else Données invalides ou identifiant déjà utilisé
+    API --> F : Erreur de validation
+    F --> A : Affichage des champs à corriger
+end
+@enduml

@@ -1,0 +1,49 @@
+@startuml
+autonumber
+skinparam dpi 160
+skinparam shadowing false
+skinparam sequenceMessageAlign center
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 15
+skinparam sequence {
+  ArrowColor #334155
+  LifeLineBorderColor #94A3B8
+  LifeLineBackgroundColor #EEF2F7
+  ParticipantBorderColor #334155
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontStyle bold
+  GroupBorderColor #94A3B8
+  GroupHeaderFontStyle bold
+}
+
+actor "Opérateur" as O
+actor "Technicien ou\nadministrateur" as T
+participant "Interface\nNext.js" as F
+participant "API Préventive\nNestJS" as API
+participant "Service\nde planification" as S
+database "MongoDB" as DB
+
+O -> F : Compléter la liste de contrôle
+O -> F : Soumettre l'intervention
+F -> API : Enregistrer la soumission
+API -> DB : Conserver les résultats\net les observations
+API --> F : Intervention en attente de validation
+
+T -> F : Consulter l'intervention soumise
+T -> F : Valider ou rejeter
+F -> API : Validation de l'intervention
+API -> DB : Mettre à jour l'occurrence
+
+alt Intervention validée
+    API -> S : Demander la prochaine échéance
+    S -> DB : Créer l'occurrence suivante
+    DB --> S : Occurrence enregistrée
+    S --> API : Prochaine échéance générée
+    API --> F : Validation confirmée
+    F --> T : Message de succès
+else Intervention rejetée
+    API -> DB : Conserver le motif de rejet
+    API --> F : Correction demandée
+    F --> O : Intervention à reprendre
+end
+@enduml

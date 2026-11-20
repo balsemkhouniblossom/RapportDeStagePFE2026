@@ -1,0 +1,60 @@
+@startuml
+left to right direction
+skinparam dpi 150
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 28
+skinparam componentStyle rectangle
+skinparam nodesep 25
+skinparam ranksep 35
+skinparam ArrowColor #334155
+skinparam component {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+}
+skinparam cloud {
+  BackgroundColor #FFFFFF
+  BorderColor #94A3B8
+}
+skinparam database {
+  BackgroundColor #EEF2F7
+  BorderColor #334155
+}
+
+cloud "Développeur" as Dev
+
+package "GitHub" {
+  [Dépôt Git\nbranche main] as Repo
+  [GitHub Actions\nCI / CD] as CI
+  [Protection de\nl'environnement] as Env
+}
+
+package "Vercel" {
+  [Frontend Next.js] as Front
+}
+
+package "Render" {
+  [Backend NestJS] as Back
+  [Service FastAPI] as AI
+  [Prometheus] as Prom
+  [Grafana] as Graf
+}
+
+package "Données et services" {
+  database "MongoDB Atlas" as DB
+  database "Supabase Storage" as Storage
+}
+
+Dev --> Repo : push / pull request
+Repo --> CI : déclenche
+CI --> Env : jeton de déploiement
+Env --> Front : déploiement
+Env --> Back : déploiement
+Front --> Back : API REST et WebSocket
+Back --> DB : accès applicatif
+Back --> Storage : documents
+Back --> AI : jeton de service
+Prom --> Back : /health/metrics
+Graf --> Prom : requêtes
+Back --> Prom : métriques
+@enduml

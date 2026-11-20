@@ -1,0 +1,60 @@
+@startuml
+left to right direction
+skinparam dpi 160
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 16
+skinparam nodesep 22
+skinparam ranksep 36
+skinparam usecase {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  ArrowColor #334155
+}
+skinparam actor {
+  BackgroundColor #FFFFFF
+  BorderColor #334155
+}
+skinparam rectangle {
+  BackgroundColor #FFFFFF
+  BorderColor #94A3B8
+}
+
+actor "Administrateur" as Admin
+actor "Technicien" as Technician
+actor "Opérateur" as Operator
+actor "Planificateur\nautomatique" as Scheduler
+
+rectangle "Plateforme GMAO -- Maintenance préventive" {
+  usecase "Gérer les plans\npréventifs" as UC_Plans
+  usecase "Gérer les tâches\net listes de contrôle" as UC_Tasks
+  usecase "Planifier la première\noccurrence" as UC_Schedule
+  usecase "Exécuter une\nintervention préventive" as UC_Execute
+  usecase "Soumettre l'intervention" as UC_Submit
+  usecase "Valider l'intervention" as UC_Validate
+  usecase "Générer la prochaine\néchéance" as UC_Next
+  usecase "Replanifier une\noccurrence" as UC_Reschedule
+  usecase "Consulter l'état\npréventif" as UC_State
+}
+
+Admin --> UC_Plans
+Admin --> UC_Tasks
+Admin --> UC_Validate
+Admin --> UC_State
+
+Technician --> UC_Plans
+Technician --> UC_Validate
+Technician --> UC_Reschedule
+Technician --> UC_State
+
+Operator --> UC_Execute
+Operator --> UC_State
+
+Scheduler --> UC_Next
+
+UC_Execute ..> UC_Submit : <<include>>
+UC_Validate ..> UC_Next : <<include>>
+@enduml
+

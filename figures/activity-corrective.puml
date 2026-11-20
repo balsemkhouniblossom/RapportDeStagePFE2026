@@ -1,0 +1,44 @@
+@startuml
+skinparam dpi 160
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 46
+skinparam ActivityBackgroundColor #F8FAFC
+skinparam ActivityBorderColor #334155
+skinparam ActivityDiamondBackgroundColor #EEF2F7
+skinparam ActivityDiamondBorderColor #334155
+skinparam ArrowColor #334155
+
+start
+:L'opérateur signale une panne;
+:Enregistrer la machine,\nle module et la description;
+:Créer un ordre de travail correctif;
+:Affecter l'ordre de travail\nà un technicien;
+
+:Le technicien prend en charge\nl'ordre de travail;
+:Démarrer l'intervention;
+:Diagnostiquer la panne;
+
+if (Pièces nécessaires disponibles ?) then (non)
+  :Demander les pièces;
+  :Mettre l'intervention\nen attente;
+  :Traiter la demande de pièces;
+  :Reprendre l'intervention;
+else (oui)
+endif
+
+:Exécuter la réparation;
+:Déclarer les pièces consommées;
+:Mettre à jour le stock;
+:Renseigner le rapport d'intervention;
+:Clôturer l'intervention;
+
+if (Validation par l'administrateur ?) then (oui)
+  :Valider l'ordre de travail;
+  :Mettre à jour l'historique\net les indicateurs;
+else (non)
+  :Retour pour correction;
+endif
+
+stop
+@enduml

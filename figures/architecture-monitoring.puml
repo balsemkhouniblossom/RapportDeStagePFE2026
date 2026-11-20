@@ -1,0 +1,57 @@
+@startuml
+skinparam dpi 150
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 30
+skinparam componentStyle rectangle
+skinparam nodesep 25
+skinparam ranksep 30
+skinparam ArrowColor #334155
+skinparam component {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+}
+skinparam package {
+  BackgroundColor #FFFFFF
+  BorderColor #94A3B8
+}
+skinparam database {
+  BackgroundColor #EEF2F7
+  BorderColor #334155
+}
+
+package "Terrain" {
+  [Capteur] as Sensor
+  [Équipement connecté] as Device
+}
+
+package "Backend NestJS" {
+  [Passerelle MQTT] as Mqtt
+  [Module de supervision] as Monitor
+  [Service de santé\nprédictive] as Health
+  [Module d'analyse\nd'anomalies] as Anomaly
+  [Notifications] as Notify
+}
+
+package "Services" {
+  [Service FastAPI\nd'analyse IMS] as FastAPI
+  database "MongoDB Atlas" as DB
+}
+
+package "Interface" {
+  [Frontend Next.js] as Front
+}
+
+Sensor --> Device
+Device --> Mqtt : MQTT
+Mqtt --> Monitor : Mesures
+Monitor --> DB : Mesures\nalertes
+Monitor --> Front : WebSocket
+Health --> DB : Santé
+Front --> Anomaly : Demande d'analyse
+Anomaly --> FastAPI : Requête
+FastAPI --> Anomaly : Score
+Anomaly --> DB : Validation
+Anomaly --> Notify : Alerte
+Notify --> Front : Notif
+@enduml

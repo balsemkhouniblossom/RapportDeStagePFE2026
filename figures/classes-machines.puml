@@ -1,0 +1,72 @@
+@startuml
+hide empty members
+skinparam dpi 160
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 15
+skinparam nodesep 60
+skinparam ranksep 55
+skinparam class {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  ArrowColor #334155
+  HeaderBackgroundColor #E2E8F0
+}
+
+class MachineType {
+  type_id : Number <<UK>>
+  name : String
+}
+
+class Machine {
+  machine_id : String <<UK>>
+  serial_no : String
+  status : String
+  type_id : ObjectId <<FK>>
+}
+
+class ModuleType {
+  mod_type_id : String <<UK>>
+  nom_module : String
+  type_id : ObjectId <<FK>>
+}
+
+class Module {
+  module_id : String <<UK>>
+  machine_id : ObjectId <<FK>>
+  mod_type_id : ObjectId <<FK>>
+  parent_module_id : ObjectId <<FK>>
+}
+
+class Capteur {
+  capteur_id : String <<UK>>
+  module_id : ObjectId <<FK>>
+  type_capteur : String
+  is_active : Boolean
+}
+
+class Mesure {
+  mesure_id : String <<UK>>
+  capteur_id : ObjectId <<FK>>
+  valeur : Number
+  timestamp : Date
+  status : String
+}
+
+class DocumentEntity {
+  document_id : String <<UK>>
+  machine_id : ObjectId <<FK>>
+  type_document : String
+  file_name : String
+}
+
+MachineType "1" -- "0..*" Machine
+MachineType "1" -- "0..*" ModuleType
+Machine "1" -- "0..*" Module
+ModuleType "1" -- "0..*" Module
+Module "0..1" <-- "0..*" Module : parent
+Module "1" -- "0..*" Capteur
+Capteur "1" -- "0..*" Mesure
+Machine "1" -- "0..*" DocumentEntity
+@enduml

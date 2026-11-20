@@ -1,0 +1,36 @@
+@startuml
+autonumber
+skinparam dpi 160
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 15
+skinparam sequenceMessageAlign center
+skinparam ArrowColor #334155
+skinparam ParticipantBackgroundColor #F8FAFC
+skinparam ParticipantBorderColor #334155
+skinparam DatabaseBackgroundColor #F8FAFC
+skinparam DatabaseBorderColor #334155
+skinparam ActorBackgroundColor #FFFFFF
+skinparam ActorBorderColor #334155
+
+actor "Technicien" as T
+participant "Frontend\nNext.js" as F
+participant "API Stocks\nNestJS" as API
+database "MongoDB" as DB
+
+T -> F : Saisir les pièces utilisées\net les quantités
+F -> API : Déclarer la consommation
+API -> DB : Vérifier la demande\net la réservation
+
+alt Quantité réservée suffisante
+    API -> DB : Décrémenter la quantité en stock
+    API -> DB : Libérer la quantité réservée
+    API -> DB : Enregistrer le mouvement de sortie
+    API -> DB : Rattacher la pièce\nà l'ordre de travail
+    API --> F : Consommation enregistrée
+    F --> T : Stock mis à jour
+else Quantité insuffisante ou réservation absente
+    API --> F : Erreur de disponibilité
+    F --> T : Demande de vérification
+end
+@enduml

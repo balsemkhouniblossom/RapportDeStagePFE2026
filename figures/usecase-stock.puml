@@ -1,0 +1,69 @@
+@startuml
+left to right direction
+skinparam dpi 160
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 16
+skinparam nodesep 22
+skinparam ranksep 36
+skinparam usecase {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  ArrowColor #334155
+}
+skinparam actor {
+  BackgroundColor #FFFFFF
+  BorderColor #334155
+}
+skinparam rectangle {
+  BackgroundColor #FFFFFF
+  BorderColor #94A3B8
+}
+
+actor "Administrateur" as Admin
+actor "Technicien" as Technician
+actor "Opérateur" as Operator
+actor "Planificateur\nautomatique" as Scheduler
+
+rectangle "Plateforme GMAO -- Stocks, notifications et pilotage" {
+  usecase "Gérer le catalogue\ndes pièces" as UC_Catalogue
+  usecase "Suivre les quantités\net les seuils" as UC_Quantities
+  usecase "Enregistrer un\nmouvement de stock" as UC_Movement
+  usecase "Traiter une\ndemande de pièces" as UC_Request
+  usecase "Consulter les journaux\nde lubrification" as UC_Lubrication
+  usecase "Consulter ses\nnotifications" as UC_Notifications
+  usecase "Consulter les tableaux\nde bord" as UC_Dashboard
+  usecase "Générer un rapport" as UC_Report
+  usecase "Programmer un\nrapport récurrent" as UC_Schedule
+  usecase "Consulter les\nindicateurs de maintenance" as UC_Kpi
+}
+
+Admin --> UC_Catalogue
+Admin --> UC_Quantities
+Admin --> UC_Movement
+Admin --> UC_Request
+Admin --> UC_Dashboard
+Admin --> UC_Report
+Admin --> UC_Schedule
+Admin --> UC_Kpi
+
+Technician --> UC_Request
+Technician --> UC_Lubrication
+Technician --> UC_Notifications
+Technician --> UC_Report
+
+Operator --> UC_Notifications
+Operator --> UC_Dashboard
+Operator --> UC_Lubrication
+
+Scheduler --> UC_Quantities
+Scheduler --> UC_Lubrication
+Scheduler --> UC_Notifications
+
+UC_Movement ..> UC_Quantities : <<include>>
+UC_Request ..> UC_Movement : <<include>>
+UC_Schedule ..> UC_Report : <<include>>
+UC_Dashboard ..> UC_Kpi : <<include>>
+@enduml

@@ -1,0 +1,26 @@
+@startuml
+skinparam dpi 150
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 46
+skinparam ActivityBackgroundColor #F8FAFC
+skinparam ActivityBorderColor #334155
+skinparam ActivityDiamondBackgroundColor #EEF2F7
+skinparam ActivityDiamondBorderColor #334155
+skinparam ArrowColor #334155
+
+start
+:Équipement : publier\nune mesure ou une alarme;
+:Contrôler l'identité\net le format du message;
+if (Appareil autorisé\net message conforme ?) then (non)
+  :Refuser et journaliser le rejet;
+else (oui)
+  :Conserver la donnée\net l'horodatage;
+  :Diffuser l'état aux\nutilisateurs abonnés;
+  if (Seuil dépassé\nou alarme active ?) then (oui)
+    :Notifier les responsables;
+  else (non)
+  endif
+endif
+stop
+@enduml

@@ -1,0 +1,45 @@
+@startuml
+autonumber
+skinparam dpi 160
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 15
+skinparam sequenceMessageAlign center
+skinparam ArrowColor #334155
+skinparam ParticipantBackgroundColor #F8FAFC
+skinparam ParticipantBorderColor #334155
+skinparam DatabaseBackgroundColor #F8FAFC
+skinparam DatabaseBorderColor #334155
+skinparam ActorBackgroundColor #FFFFFF
+skinparam ActorBorderColor #334155
+
+actor "Administrateur" as A
+participant "Frontend\nNext.js" as F
+participant "API Rapports\nNestJS" as API
+participant "Service\nKPI" as K
+participant "Générateur\nPDF / Excel / CSV" as G
+database "MongoDB" as DB
+queue "Planificateur\n(cron horaire)" as C
+
+A -> F : Demander un rapport\n(type, format, période)
+F -> API : POST /reports
+API -> DB : Créer le rapport\nà l'état « en attente »
+API --> F : Identifiant du rapport
+
+API -> K : Collecter les données\nfiltrées par période
+K -> DB : Agréger les indicateurs
+DB --> K : Résultats
+K --> API : Jeu de données tabulaire
+API -> G : Rendre le document
+G --> API : Fichier généré
+API -> DB : Statut « terminé »,\nempreinte et date d'expiration
+API -> DB : Créer la notification\n« rapport prêt »
+API --> F : Rapport disponible
+A -> F : Télécharger le rapport
+F -> API : GET /reports/:id/download
+
+C -> DB : Sélectionner les rapports\nplanifiés arrivés à échéance
+C -> API : Générer le rapport
+API -> DB : Enregistrer le rapport\net avancer la prochaine échéance
+API -> DB : Notifier le créateur
+@enduml

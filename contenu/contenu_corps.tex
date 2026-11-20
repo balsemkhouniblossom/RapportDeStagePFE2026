@@ -1441,55 +1441,125 @@ L'ensemble de ces éléments constitue une base solide pour la conception et la 
 
 \fi
 
-\section{Sprint 1 : Gestion de l'inscription et de
-l'authentification}
+\input{contenu/contenu_sprint1}
 
-\subsection{Introduction Sprint 1
-}
-\subsection{Objectif du Sprint}
+\input{contenu/contenu_sprint2}
 
-\subsection{Analyse du sprint 1}
+\input{contenu/contenu_sprint3}
 
-\subsubsection{Sprint Backlog}
+\input{contenu/contenu_sprint4}
 
-\subsubsection{Diagramme des cas d'utilisation Gestion de l'inscription et de
-l'authentification}
+\input{contenu/contenu_sprint5}
 
-\textbf{Description textuelle des cas d'utilisation}
+\input{contenu/contenu_sprint6}
 
-\subsubsection{Diagramme de séquence objet du sprint 1}
+\input{contenu/contenu_sprint7}
 
+\newpage
 
-\subsection{Réalisation}
+\section*{Conclusion générale}
+\addcontentsline{toc}{section}{Conclusion générale}
 
-\textbf{Conclusion}
+\subsection*{Bilan du travail réalisé}
 
-\section{Sprint 2 : Gestion des utilisateurs et profil
-utilisateur}
+Ce projet de fin d’études avait pour objectif de concevoir et de développer une plateforme web de Gestion de la Maintenance Assistée par Ordinateur adaptée aux activités d’IPROTEX Tunisie.
 
-\subsection{Introduction}
+La démarche a débuté par l’analyse du contexte industriel et des pratiques de maintenance de l’entreprise. Cette étude a montré que les procédures et les référentiels existaient déjà, mais qu’ils étaient répartis entre plusieurs documents indépendants : plans de maintenance préventive par processus, référentiel codifié des pannes, liste des machines et listes de pièces de rechange.
 
-\subsection{Objectif du Sprint}
+La problématique ne portait donc pas sur l’absence de méthodes de maintenance, mais sur la difficulté à relier ces informations, à les consulter rapidement et à assurer leur traçabilité. L’étude des solutions nationales et internationales a confirmé l’intérêt d’une plateforme adaptée aux référentiels internes de l’entreprise.
 
-\subsection{Analyse du sprint 2}
+La solution développée centralise les données relatives aux équipements, aux plans préventifs, aux pannes, aux ordres de travail, aux interventions, aux pièces de rechange et aux documents techniques. Elle applique une séparation des responsabilités entre l’administrateur, le technicien et l’opérateur.
 
-\subsubsection{Diagramme des cas d'utilisation du sprint 2 Gestion Utilisateurs}
+Le développement a été organisé selon une démarche agile inspirée de Scrum, avec un Sprint 0 consacré à l’analyse et sept Sprints de réalisation. Chaque Sprint a produit un incrément vérifié avant le passage au suivant.
 
-\textbf{Description textuelle des cas d'utilisation Gestion Utilisateurs}
+\subsection*{Résultats obtenus}
 
-\subsubsection{Diagramme des cas d'utilisation du sprint 2 Gestion Profile}
+La plateforme couvre désormais les principaux processus de maintenance identifiés durant l’analyse.
 
-\textbf{Description textuelle des cas d'utilisation Gestion Profile}
+\begin{table}[H]
+\centering
+\caption{Synthèse des résultats obtenus}
+\label{tab:synthese-resultats}
+\small
+\begin{tabularx}{\textwidth}{|p{3.6cm}|X|}
+\hline
+\textbf{Domaine} & \textbf{Résultat obtenu} \\
+\hline
+Accès et administration &
+Authentification locale et Google, vérification des comptes, approbation par l’administrateur, gestion des profils et contrôle des rôles \\
+\hline
+Équipements &
+Gestion des machines, des types, des modules, des sous-modules et des capteurs \\
+\hline
+Documentation &
+Téléversement, publication, archivage, remplacement et versionnement des documents techniques \\
+\hline
+Maintenance préventive &
+Gestion des plans, des tâches et des listes de contrôle, exécution par l’opérateur, validation et génération automatique des échéances \\
+\hline
+Maintenance corrective &
+Signalement des pannes, ordres de travail, prise en charge, attente de pièces, rapport et validation \\
+\hline
+Stocks &
+Catalogue des pièces, quantités disponibles et réservées, demandes, consommations et mouvements de stock \\
+\hline
+Pilotage &
+Notifications, calendrier, tableaux de bord, MTBF, MTTR, disponibilité et rapports PDF, Excel et CSV \\
+\hline
+Surveillance &
+Collecte MQTT, diffusion WebSocket, supervision en temps réel et indicateur de santé des machines \\
+\hline
+Maintenance prédictive &
+Service FastAPI d’analyse d’anomalies, scores de risque, historique et validation humaine \\
+\hline
+DevSecOps &
+Intégration continue, tests automatisés, analyse SonarCloud, déploiement contrôlé, supervision Prometheus et Grafana \\
+\hline
+\end{tabularx}
+\end{table}
 
-\subsubsection{Diagramme de séquence objet du sprint 2}
+La plateforme répond ainsi à la problématique posée : elle centralise les informations, structure les processus préventifs et correctifs, conserve l’historique des opérations et fournit des indicateurs aux responsables.
 
-\textbf{Diagramme de séquence objet Gestion Des utilisateurs}
+\subsection*{Apports du projet}
 
-\textbf{Diagramme de séquence objet Gestion Des profiles }
+Pour l’entreprise, le projet apporte un environnement unique de suivi des équipements et des interventions. Les plans existants sont transformés en opérations planifiées et traçables, et les pièces consommées sont rattachées aux ordres de travail correspondants.
 
-\subsection{Réalisation}
+Le projet apporte également une première capacité de surveillance des équipements connectés et d’analyse d’anomalies. Cette composante reste une aide au diagnostic, mais elle ouvre une voie d’évolution vers une maintenance davantage fondée sur l’état des machines.
 
-\textbf{Conclusion}
+Sur le plan personnel, ce stage a permis de mettre en pratique l’ensemble des étapes d’un projet informatique : analyse des besoins, modélisation UML, conception d’architecture, développement full-stack, tests, sécurisation, déploiement et supervision.
 
+Il a également nécessité un travail d’adaptation aux contraintes d’un environnement industriel réel, où les procédures existantes, les documents métier et les attentes des utilisateurs ne correspondent pas toujours à un modèle logiciel standard.
 
+\subsection*{Difficultés rencontrées}
 
+Plusieurs difficultés ont marqué la réalisation du projet.
+
+La première concernait l’hétérogénéité des documents internes. Les plans de maintenance, les référentiels de pannes et les listes de pièces ne partageaient pas toujours les mêmes identifiants ni la même structure. Il a fallu définir des correspondances avant de pouvoir les intégrer dans un modèle commun.
+
+La deuxième concernait la modélisation du flux préventif. Une intervention ne devait pas générer la prochaine échéance avant sa validation, sans quoi un contrôle non réalisé aurait été considéré comme effectué. Ce point a nécessité une séparation claire entre l’exécution, la soumission et la validation.
+
+La troisième concernait la gestion des pièces. Il fallait distinguer la quantité physique, la quantité réservée et la quantité réellement consommée, afin d’éviter qu’une même pièce soit promise à deux interventions simultanées.
+
+La quatrième concernait les limites du modèle d’anomalies. Le modèle intégré est un prototype validé sur un jeu de données public ; sa généralisation aux machines d’IPROTEX n’est pas établie. Cette limite devait être présentée clairement pour éviter une confiance excessive dans les prédictions.
+
+Enfin, la coordination entre les technologies, la configuration des secrets, le déploiement des services et la supervision a demandé un travail important de mise au point.
+
+\subsection*{Perspectives}
+
+Plusieurs évolutions peuvent prolonger ce travail.
+
+Le modèle d’anomalies pourrait être entraîné sur des données réellement collectées auprès des machines d’IPROTEX. Une telle étape nécessiterait une période d’observation, l’identification des variables pertinentes et une évaluation des performances dans les conditions de production.
+
+La maintenance prédictive pourrait être complétée par des indicateurs de dégradation progressive et par des règles d’alerte adaptées aux seuils de chaque équipement.
+
+L’application mobile constituerait une évolution utile pour les opérateurs et les techniciens qui interviennent directement sur le terrain. Un mode hors connexion permettrait la saisie des contrôles dans les zones où la couverture réseau est insuffisante.
+
+L’intégration avec les systèmes d’information de l’entreprise, notamment la gestion des achats et la comptabilité, permettrait d’associer les consommations de pièces à leur coût réel et de déclencher les réapprovisionnements à partir des seuils de stock.
+
+Enfin, un audit de sécurité complet, des tests de charge et une validation des performances en conditions industrielles réelles constitueraient une étape indispensable avant une exploitation à grande échelle.
+
+\subsection*{Conclusion}
+
+Ce projet a permis de transformer des procédures de maintenance existantes en une plateforme numérique structurée, traçable et évolutive. La solution couvre les besoins opérationnels identifiés tout en laissant une place claire à l’expertise humaine dans les décisions de maintenance.
+
+Le travail réalisé constitue une base fonctionnelle et technique sur laquelle l’entreprise peut s’appuyer pour poursuivre la digitalisation de ses activités de maintenance.

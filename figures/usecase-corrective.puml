@@ -1,0 +1,67 @@
+@startuml
+left to right direction
+skinparam dpi 160
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 16
+skinparam nodesep 22
+skinparam ranksep 36
+skinparam usecase {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  ArrowColor #334155
+}
+skinparam actor {
+  BackgroundColor #FFFFFF
+  BorderColor #334155
+}
+skinparam rectangle {
+  BackgroundColor #FFFFFF
+  BorderColor #94A3B8
+}
+
+actor "Administrateur" as Admin
+actor "Technicien" as Technician
+actor "Opérateur" as Operator
+actor "Assistant IA\n(optionnel)" as AI
+
+rectangle "Plateforme GMAO -- Maintenance corrective" {
+  usecase "Signaler une panne" as UC_Fault
+  usecase "Gérer les pannes\net solutions" as UC_Reference
+  usecase "Créer et affecter\nun ordre de travail" as UC_Create
+  usecase "Prendre en charge\nun ordre de travail" as UC_Claim
+  usecase "Exécuter une\nintervention" as UC_Execute
+  usecase "Demander des pièces" as UC_Request
+  usecase "Décider d'une demande\nde pièces" as UC_Decide
+  usecase "Déclarer les pièces\nconsommées" as UC_Consume
+  usecase "Renseigner le rapport\nd'intervention" as UC_Report
+  usecase "Clôturer et valider\nl'ordre de travail" as UC_Validate
+  usecase "Consulter le calendrier\net les statistiques" as UC_Stats
+  usecase "Consulter l'assistant\ncorrectif" as UC_Assistant
+}
+
+Operator --> UC_Fault
+Admin --> UC_Reference
+Admin --> UC_Create
+Admin --> UC_Validate
+Admin --> UC_Stats
+Admin --> UC_Assistant
+
+Technician --> UC_Claim
+Technician --> UC_Execute
+Technician --> UC_Request
+Technician --> UC_Consume
+Technician --> UC_Report
+Technician --> UC_Assistant
+
+AI --> UC_Assistant
+
+UC_Fault ..> UC_Create : <<include>>
+UC_Claim ..> UC_Execute : <<extend>>
+UC_Execute ..> UC_Request : <<extend>>
+UC_Execute ..> UC_Report : <<include>>
+UC_Execute ..> UC_Consume : <<extend>>
+UC_Validate ..> UC_Report : <<include>>
+@enduml

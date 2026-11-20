@@ -1,0 +1,40 @@
+@startuml
+skinparam dpi 160
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 34
+skinparam ActivityBackgroundColor #F8FAFC
+skinparam ActivityBorderColor #334155
+skinparam ActivityDiamondBackgroundColor #EEF2F7
+skinparam ActivityDiamondBorderColor #334155
+skinparam ArrowColor #334155
+
+start
+:Le technicien demande une pièce\npour un ordre de travail;
+:Enregistrer la demande\nà l'état en attente;
+
+if (Décision de l'administrateur ?) then (acceptée)
+  :Contrôler la disponibilité\nréelle (stock - réservé);
+  if (Quantité suffisante ?) then (oui)
+    :Réserver la quantité demandée;
+    :Enregistrer un mouvement\nde réservation;
+    :Notifier le demandeur;
+    :Consommer les pièces\nlors de l'intervention;
+    :Décrémenter le stock\net la réservation;
+  else (non)
+    :Refuser la réservation;
+    :Signaler l'indisponibilité;
+    :Maintenir l'ordre de travail\nen attente de pièces;
+  endif
+else (refusée)
+  :Clore la demande sans\naffecter le stock;
+endif
+
+:Mettre à jour les seuils\nd'alerte de stock;
+if (Stock disponible <= seuil ?) then (oui)
+  :Notifier les administrateurs;
+else (non)
+endif
+
+stop
+@enduml

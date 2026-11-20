@@ -1,0 +1,63 @@
+@startuml
+left to right direction
+skinparam dpi 160
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 16
+skinparam nodesep 22
+skinparam ranksep 36
+skinparam usecase {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  ArrowColor #334155
+}
+skinparam actor {
+  BackgroundColor #FFFFFF
+  BorderColor #334155
+}
+skinparam rectangle {
+  BackgroundColor #FFFFFF
+  BorderColor #94A3B8
+}
+
+actor "Administrateur" as Admin
+actor "Technicien" as Technician
+actor "Opérateur" as Operator
+actor "Planificateur\nautomatique" as Scheduler
+
+rectangle "Stocks, notifications et pilotage" {
+  usecase "Gérer le catalogue\ndes pièces" as UC_Catalog
+  usecase "Gérer les stocks\net les ajustements" as UC_Stock
+  usecase "Consulter les mouvements\nde stock" as UC_Movements
+  usecase "Traiter une demande\nde pièces" as UC_Request
+  usecase "Gérer les journaux\nde lubrification" as UC_Lubrication
+  usecase "Consulter les notifications" as UC_Notifications
+  usecase "Consulter le tableau\nde bord" as UC_Dashboard
+  usecase "Générer et exporter\nun rapport" as UC_Reports
+  usecase "Programmer un rapport" as UC_Scheduled
+}
+
+Admin --> UC_Catalog
+Admin --> UC_Stock
+Admin --> UC_Movements
+Admin --> UC_Request
+Admin --> UC_Lubrication
+Admin --> UC_Dashboard
+Admin --> UC_Reports
+Admin --> UC_Scheduled
+Admin --> UC_Notifications
+
+Technician --> UC_Request
+Technician --> UC_Movements
+Technician --> UC_Notifications
+Technician --> UC_Dashboard
+Technician --> UC_Reports
+
+Operator --> UC_Notifications
+Operator --> UC_Dashboard
+
+Scheduler --> UC_Scheduled
+UC_Scheduled ..> UC_Reports : <<include>>
+@enduml

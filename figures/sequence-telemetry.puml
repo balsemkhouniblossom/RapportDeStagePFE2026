@@ -1,0 +1,35 @@
+@startuml
+autonumber
+skinparam dpi 150
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 26
+skinparam sequenceMessageAlign center
+skinparam ArrowColor #334155
+skinparam ParticipantBackgroundColor #F8FAFC
+skinparam ParticipantBorderColor #334155
+skinparam DatabaseBackgroundColor #F8FAFC
+skinparam DatabaseBorderColor #334155
+skinparam ActorBackgroundColor #FFFFFF
+skinparam ActorBorderColor #334155
+
+participant "Équipement\nconnecté" as D
+participant "Courtier\nMQTT" as M
+participant "Backend\nNestJS" as B
+database "MongoDB" as DB
+participant "Passerelle\nWebSocket" as WS
+actor "Utilisateur\nconnecté" as U
+
+D -> M : Publier une mesure\nou un événement
+M -> B : Transmettre le message
+B -> B : Authentifier le device\net valider le message
+B -> DB : Enregistrer la mesure\net le statut
+B -> WS : Diffuser l'événement
+WS --> U : Mise à jour en temps réel
+
+alt Événement de panne
+    B -> DB : Enregistrer l'événement
+    B -> B : Créer une alerte
+    WS --> U : Notification de panne
+end
+@enduml
