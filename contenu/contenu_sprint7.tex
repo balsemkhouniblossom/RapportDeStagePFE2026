@@ -261,6 +261,17 @@ La chaîne d'intégration regroupe sept tâches. La première vérifie l'hygièn
 
 Les tests unitaires s'appuient sur une base MongoDB éphémère fournie par le service d'intégration, ce qui garantit des résultats reproductibles sans accès à la base de production. La quality gate et la couverture sont gérées par SonarCloud \cite{sonarcloud_docs}. La couverture est produite au format standard et les chemins de sources sont vérifiés avant transmission à SonarCloud, afin d'éviter qu'un rapport mal formé ne soit accepté silencieusement.
 
+La dernière tâche d'analyse produit le résultat présenté à la figure~\ref{fig:sprint7-sonarcloud} : la porte de qualité y figure avec la couverture du nouveau code, la duplication et les anomalies restantes. Un verdict défavorable interrompt la chaîne avant la livraison, conformément à l'organisation décrite en conception.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth,height=0.72\textheight,keepaspectratio]{figures/captures/annexe-sonarcloud.png}
+    \caption{Porte de qualité, anomalies et couverture du code dans SonarCloud}
+    \label{fig:sprint7-sonarcloud}
+\end{figure}
+
+La valeur affichée pour la couverture (84,35~\%) correspond au taux de couverture des tests automatisés rapporté par SonarCloud. Elle est calculée à partir des rapports LCOV produits pour le backend et le frontend et ne reflète que le périmètre du code effectivement instrumenté par les tests. Les fichiers de configuration, les DTO, les schémas et les points d'entrée sont exclus de ce calcul, de même que les tests de bout en bout exécutés avec Playwright, qui ne sont pas instrumentés au niveau du code source. Cette valeur dépasse le seuil de 80~\% appliqué au nouveau code, tandis que les duplications restent sous la limite de 3~\%. Ces indicateurs portent sur les modifications récentes et non sur l'ensemble du dépôt, ce qui correspond à l'objectif d'une analyse de régression : empêcher qu'une modification dégrade progressivement la qualité du code livré.
+
 Le tableau~\ref{tab:controles-ci} synthétise ces tâches, les vérifications qu'elles portent et l'effet d'un échec sur la livraison.
 
 {\footnotesize
@@ -340,6 +351,15 @@ L'endpoint de métriques renvoie un format textuel standard, lisible par Prometh
 L'accès à cet endpoint est protégé. Il accepte soit un jeton d'administration, soit le jeton dédié configuré pour la collecte. Prometheus utilise le second, ce qui évite de dépendre d'une session utilisateur et de ses renouvellements.
 
 Grafana \cite{grafana_docs} est provisionné avec la source de données Prometheus et un tableau de bord dédié. Ce tableau de bord présente l'état du backend, le volume de requêtes, le taux d'erreur, le temps de réponse, les routes les plus sollicitées et les indicateurs métier. Les alertes configurées couvrent trois situations : l'absence de collecte pendant plus de deux minutes, un taux d'erreurs serveur supérieur à 0,05 par seconde sur cinq minutes et une latence moyenne supérieure à une seconde sur dix minutes. Ces indicateurs relèvent de la pratique de fiabilité des services, qui privilégie l'observation de la disponibilité, des erreurs et de la latence plutôt que la seule vérification fonctionnelle \cite{sre_book}.
+
+La figure~\ref{fig:sprint7-grafana} présente ce tableau de bord en exploitation. Les panneaux de trafic et de latence sont alimentés uniquement lorsque l'application reçoit des requêtes : une période d'inactivité produit des courbes plates sans que le service soit pour autant indisponible. L'état du backend, la date de collecte et le nombre de métriques collectées permettent de distinguer une absence de trafic d'une absence de collecte. Les alertes décrites ci-dessus s'appuient sur ces mêmes séries : une collecte interrompue, un taux d'erreurs serveur élevé ou une latence moyenne dégradée déclenchent une alerte.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth,height=0.72\textheight,keepaspectratio]{figures/captures/annexe-grafana.png}
+    \caption{Supervision des services : trafic, temps de réponse, erreurs et indicateurs métier}
+    \label{fig:sprint7-grafana}
+\end{figure}
 
 \subsubsection{Journaux et suivi des erreurs}
 
@@ -499,7 +519,7 @@ Enfin, un incident de sécurité est documenté et non résolu : un export de ba
 
 \subsection{Revue du Sprint et conclusion}
 
-Lors de la revue, une modification du dépôt a été suivie depuis la demande de fusion jusqu'à sa mise en production : contrôles, quality gate, déploiement et vérification de disponibilité. Le parcours reprend les scénarios du tableau~\ref{tab:tests-sprint7}. Une modification invalide est arrêtée par la tâche concernée avant toute livraison, tandis qu'une fusion conforme traverse les sept tâches, franchit la quality gate et déclenche le déploiement, suivi de l'attente de disponibilité. L'exploitation a été présentée à partir du tableau de bord Grafana, des seuils d'alerte et de l'accès protégé aux métriques.
+Lors de la revue, une modification du dépôt a été suivie depuis la demande de fusion jusqu'à sa mise en production : contrôles, quality gate, déploiement et vérification de disponibilité. Le parcours reprend les scénarios du tableau~\ref{tab:tests-sprint7} et le tableau de bord de la figure~\ref{fig:sprint7-grafana}. Une modification invalide est arrêtée par la tâche concernée avant toute livraison, tandis qu'une fusion conforme traverse les sept tâches, franchit la quality gate et déclenche le déploiement, suivi de l'attente de disponibilité. L'exploitation a été présentée à partir de ce tableau de bord, des seuils d'alerte et de l'accès protégé aux métriques.
 
 La durée de la chaîne a été discutée. La volumétrie des tests, avec plus de deux cents fichiers côté backend, explique un temps de retour de plusieurs minutes. La parallélisation des tâches et l'annulation des exécutions devenues obsolètes ont été présentées comme les deux leviers retenus pour contenir ce délai sans réduire la couverture.
 
