@@ -1094,6 +1094,29 @@ Next.js a été utilisé avec son \textit{App Router} pour structurer les pages 
 
 Les mécanismes de déploiement, de test, de contrôle de la qualité et de supervision seront détaillés dans le Sprint 7 consacré au DevSecOps.
 
+\subsubsection{Poste de travail utilisé}
+
+Le développement, l'exécution locale des trois applications et les campagnes de tests automatisés ont été réalisés sur un seul poste de travail. Sa configuration est résumée dans le tableau~\ref{tab:poste-travail}. La mémoire vive et le stockage sur disque SSD ont une incidence directe sur le projet : les tests backend utilisent une base MongoDB éphémère et les scénarios Playwright lancent un navigateur, deux usages qui sollicitent simultanément la mémoire et les accès disque. Le système d'exploitation conditionne en outre la reproduction des scripts d'exploitation et des chemins de fichiers.
+
+\begin{table}[H]
+\centering
+\caption{Configuration du poste de travail}
+\label{tab:poste-travail}
+\begin{tabularx}{\textwidth}{|p{4.2cm}|X|}
+\hline
+\textbf{Caractéristique} & \textbf{Valeur} \\
+\hline
+Processeur & Intel\textsuperscript{\textregistered} Core\textsuperscript{\texttrademark} i5-10210U @ 1,60~GHz \\
+\hline
+Mémoire vive (RAM) & 20~Go \\
+\hline
+Stockage & SSD \\
+\hline
+Système d'exploitation & Microsoft Windows 10 Pro (64~bits) \\
+\hline
+\end{tabularx}
+\end{table}
+
 \iffalse
 
 La réalisation de cette plateforme a nécessité l'utilisation d'un ensemble de technologies modernes permettant de concevoir une application web performante, sécurisée et évolutive. Le choix de ces outils a été effectué en tenant compte des besoins du projet, des performances attendues ainsi que de leur compatibilité avec une architecture web moderne.
