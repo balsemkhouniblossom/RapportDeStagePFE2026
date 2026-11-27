@@ -281,17 +281,14 @@ Les équipements transmettent leurs données avec une authentification distincte
 
 Les capteurs peuvent être activés ou désactivés selon leur état de fonctionnement. Un capteur désactivé n'est plus pris en compte dans la collecte supervisée. L'administrateur peut également modifier l'intervalle de battement d'un appareil et consulter sa dernière activité.
 
+La supervision présente l'état des machines, la dernière mesure reçue et les alertes actives, actualisées par le flux temps réel.
+
 \begin{figure}[H]
     \centering
-    \IfFileExists{figures/sprint6-devices.png}{%
-        \includegraphics[width=0.95\textwidth,height=0.82\textheight,keepaspectratio]{figures/sprint6-devices.png}%
-    }{%
-        \fbox{\parbox[c][7cm][c]{0.92\textwidth}{\centering\itshape Capture d'écran à insérer\\[2mm]\texttt{figures/sprint6-devices.png}}}%
-    }
-    \caption{Gestion des équipements connectés et de leur état}
-    \label{fig:sprint6-devices}
+    \includegraphics[width=0.92\textwidth,height=0.72\textheight,keepaspectratio]{figures/captures/sprint6-live-monitoring.png}
+    \caption{Supervision en temps réel des équipements}
+    \label{fig:sprint6-live-monitoring}
 \end{figure}
-
 \subsubsection{Collecte et diffusion en temps réel}
 
 Les mesures sont transmises par MQTT puis traitées par le backend. Chaque message est authentifié, validé et horodaté avant son enregistrement.
@@ -305,17 +302,6 @@ Les changements d'état sont diffusés par WebSocket aux utilisateurs connectés
 La supervision en direct présente l'état des machines, les dernières mesures reçues et les alertes actives. La résolution d'une alarme n'est pas automatique : elle reste une décision d'un utilisateur habilité, même lorsque l'équipement revient à un état normal.
 
 La qualité de la surveillance dépend directement de celle des mesures reçues. Un capteur mal calibré, une alimentation instable ou une horloge déréglée produisent des valeurs aberrantes qui ressemblent à une anomalie sans qu'aucune défaillance ne soit réelle. Le contrôle du format et des bornes écarte les messages manifestement invalides sans remplacer une vérification périodique de l'instrumentation ; la conservation de l'horodatage d'enregistrement et de celui de réception permet de détecter un décalage d'horloge ou un envoi différé.
-
-\begin{figure}[H]
-    \centering
-    \IfFileExists{figures/sprint6-live-monitoring.png}{%
-        \includegraphics[width=0.95\textwidth,height=0.82\textheight,keepaspectratio]{figures/sprint6-live-monitoring.png}%
-    }{%
-        \fbox{\parbox[c][7cm][c]{0.92\textwidth}{\centering\itshape Capture d'écran à insérer\\[2mm]\texttt{figures/sprint6-live-monitoring.png}}}%
-    }
-    \caption{Supervision en temps réel de l'état des machines}
-    \label{fig:sprint6-live-monitoring}
-\end{figure}
 
 \subsubsection{Indicateur de santé des machines}
 
@@ -388,15 +374,22 @@ La confirmation indique que l'anomalie est jugée pertinente au regard du contex
 
 Chaque décision conserve son auteur et sa date. Ce mécanisme garantit que les résultats du modèle ne sont pas utilisés comme des décisions automatiques et qu'une expertise humaine reste associée à toute action de maintenance. Le système refuse une seconde validation : une analyse déjà traitée ne peut plus changer d'état, ce qui évite qu'un même résultat soit successivement confirmé et rejeté par deux utilisateurs.
 
+    Le résultat d'une analyse affiche le score, le niveau de risque, les raisons de la détection et la machine concernée.
+
 \begin{figure}[H]
     \centering
-    \IfFileExists{figures/sprint6-anomaly-analysis.png}{%
-        \includegraphics[width=0.95\textwidth,height=0.82\textheight,keepaspectratio]{figures/sprint6-anomaly-analysis.png}%
-    }{%
-        \fbox{\parbox[c][7cm][c]{0.92\textwidth}{\centering\itshape Capture d'écran à insérer\\[2mm]\texttt{figures/sprint6-anomaly-analysis.png}}}%
-    }
-    \caption{Analyse d'anomalies et validation par un utilisateur habilité}
+    \includegraphics[width=0.92\textwidth,height=0.72\textheight,keepaspectratio]{figures/captures/sprint6-anomaly-analysis.png}
+    \caption{Résultat d'une analyse d'anomalie}
     \label{fig:sprint6-anomaly-analysis}
+\end{figure}
+
+La validation d'une analyse permet de la confirmer ou de la rejeter en précisant un motif ; l'auteur et la date de la décision sont conservés.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth,height=0.72\textheight,keepaspectratio]{figures/captures/sprint6-anomaly-validation.png}
+    \caption{Validation humaine d'une analyse}
+    \label{fig:sprint6-anomaly-validation}
 \end{figure}
 
 \subsubsection{Notifications et alertes persistantes}

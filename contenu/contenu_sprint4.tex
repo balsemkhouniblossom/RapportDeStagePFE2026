@@ -237,6 +237,15 @@ Le signalement peut être rapproché du référentiel des pannes afin d'identifi
 
 Une fois le signalement enregistré, un ordre de travail correctif est créé. Selon l'organisation retenue, il peut être affecté directement à un technicien ou rester disponible pour une prise en charge.
 
+Le formulaire de signalement guide l'opérateur dans le choix de la machine et du module, la description de l'anomalie et la saisie du code de panne.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.80\textwidth,height=0.76\textheight,keepaspectratio]{figures/captures/sprint4-panne.png}
+    \caption{Formulaire de signalement d'une panne}
+    \label{fig:sprint4-panne}
+\end{figure}
+
 \subsubsection{Gestion des ordres de travail}
 
 L'administrateur peut créer un ordre de travail, le modifier, le supprimer ou le replanifier. Chaque ordre précise la machine concernée, le module éventuel, la priorité, la date prévue, le technicien affecté et l'origine de l'intervention.
@@ -245,14 +254,12 @@ Le calendrier des ordres de travail offre une vue sur les interventions planifi�
 
 Les statistiques regroupent notamment le nombre d'ordres créés, d'interventions en cours, d'ordres en attente de pièces et d'interventions clôturées. Ces informations alimentent les tableaux de bord présentés dans le Sprint suivant.
 
+    La liste des ordres de travail affiche la priorité, le technicien affecté, l'état et l'échéance de chaque intervention.
+
 \begin{figure}[H]
     \centering
-    \IfFileExists{figures/sprint4-work-orders.png}{%
-        \includegraphics[width=0.95\textwidth,height=0.82\textheight,keepaspectratio]{figures/sprint4-work-orders.png}%
-    }{%
-        \fbox{\parbox[c][7cm][c]{0.92\textwidth}{\centering\itshape Capture d'écran à insérer\\[2mm]\texttt{figures/sprint4-work-orders.png}}}%
-    }
-    \caption{Liste et suivi des ordres de travail}
+    \includegraphics[width=0.88\textwidth,height=0.78\textheight,keepaspectratio]{figures/captures/sprint4-work-orders.png}
+    \caption{Suivi des ordres de travail}
     \label{fig:sprint4-work-orders}
 \end{figure}
 
@@ -275,6 +282,15 @@ Au cours de l'intervention, il peut :
 
 La mise en attente conserve la cause du blocage. Elle permet de distinguer une intervention retardée par une rupture de stock d'une intervention simplement non démarrée.
 
+Lorsqu'une pièce n'est pas disponible, l'intervention est suspendue : l'écran conserve la pièce demandée, sa quantité, son statut et l'action de reprise.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth,height=0.72\textheight,keepaspectratio]{figures/captures/sprint4-waiting-parts.png}
+    \caption{Intervention suspendue pour indisponibilité de pièces}
+    \label{fig:sprint4-waiting-parts}
+\end{figure}
+
 \subsubsection{Demande et consommation des pièces}
 
 La demande de pièces précise la référence, la quantité souhaitée et l'ordre de travail concerné. Elle est soumise à une décision qui peut l'accepter, la réserver ou la refuser selon la disponibilité et les règles de gestion définies.
@@ -291,13 +307,11 @@ Le technicien renseigne ce rapport avant de clôturer l'intervention. L'ordre de
 
 La validation de l'ordre de travail confirme que l'intervention a été correctement documentée. Elle met à jour l'historique de la machine et alimente les indicateurs de maintenance, notamment le temps moyen de réparation.
 
+    Le rapport d'intervention documente le diagnostic, les actions réalisées, les pièces utilisées et les durées de l'intervention.
+
 \begin{figure}[H]
     \centering
-    \IfFileExists{figures/sprint4-intervention-report.png}{%
-        \includegraphics[width=0.92\textwidth,height=0.82\textheight,keepaspectratio]{figures/sprint4-intervention-report.png}%
-    }{%
-        \fbox{\parbox[c][7cm][c]{0.92\textwidth}{\centering\itshape Capture d'écran à insérer\\[2mm]\texttt{figures/sprint4-intervention-report.png}}}%
-    }
+    \includegraphics[width=0.92\textwidth,height=0.72\textheight,keepaspectratio]{figures/captures/sprint4-intervention-report.png}
     \caption{Rapport d'intervention corrective}
     \label{fig:sprint4-intervention-report}
 \end{figure}

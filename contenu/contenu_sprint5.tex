@@ -254,14 +254,12 @@ L'administrateur peut ajuster un niveau de stock. Chaque ajustement est enregist
 
 La liste des pièces propose une recherche et un filtrage par disponibilité. Les pièces dont la quantité disponible devient faible peuvent être signalées dans les tableaux de bord.
 
+    Le tableau des stocks distingue la quantité disponible, la quantité réservée et le stock total, avec le seuil d'alerte et l'emplacement.
+
 \begin{figure}[H]
     \centering
-    \IfFileExists{figures/sprint5-stock-list.png}{%
-        \includegraphics[width=0.95\textwidth,height=0.82\textheight,keepaspectratio]{figures/sprint5-stock-list.png}%
-    }{%
-        \fbox{\parbox[c][7cm][c]{0.92\textwidth}{\centering\itshape Capture d'écran à insérer\\[2mm]\texttt{figures/sprint5-stock-list.png}}}%
-    }
-    \caption{Suivi des pièces de rechange et des niveaux de stock}
+    \includegraphics[width=0.92\textwidth,height=0.72\textheight,keepaspectratio]{figures/captures/sprint5-stock-list.png}
+    \caption{Suivi des pièces et des niveaux de stock}
     \label{fig:sprint5-stock-list}
 \end{figure}
 
@@ -274,6 +272,15 @@ Selon la disponibilité, la demande peut être réservée, maintenue en attente 
 Lors de la consommation, le stock est décrémenté et la réservation est libérée. Un mouvement de sortie est enregistré avec le lien vers l'ordre de travail. Cette association permet de reconstituer les pièces utilisées pour une intervention et d'alimenter les analyses de coût.
 
 Les mouvements de stock sont consultables avec leur type, leur quantité, leur date et leur origine. Ce journal constitue la base de la traçabilité des entrées et des sorties de pièces.
+
+L'historique d'une pièce détaille chaque mouvement avec son type, sa quantité, sa date, son motif et l'ordre de travail associé.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth,height=0.72\textheight,keepaspectratio]{figures/captures/sprint5-stock-movements.png}
+    \caption{Historique des mouvements de pièces}
+    \label{fig:sprint5-stock-movements}
+\end{figure}
 
 \subsubsection{Journaux de lubrification}
 
@@ -288,6 +295,15 @@ Le centre de notifications regroupe les événements destinés à l'utilisateur 
 Chaque notification comporte un type, un contenu, une date et éventuellement une référence vers la machine ou l'ordre de travail concerné. Un compteur indique le nombre de notifications non lues.
 
 L'utilisateur peut marquer une notification comme lue ou la supprimer. Les notifications peuvent également être transmises par courriel lorsque le service de messagerie est configuré. L'envoi par courriel reste optionnel et ne bloque pas le fonctionnement du centre de notifications.
+
+Le centre de notifications regroupe les alertes par type, affiche le compteur de messages non lus et ouvre l'objet concerné.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth,height=0.72\textheight,keepaspectratio]{figures/captures/sprint5-notifications.png}
+    \caption{Centre de notifications}
+    \label{fig:sprint5-notifications}
+\end{figure}
 
 \subsubsection{Tableaux de bord et indicateurs}
 
@@ -320,14 +336,12 @@ Ces indicateurs sont calculés par machine et agrégés pour la flotte d'équipe
 
 Les graphiques sont générés à partir des données de la plateforme et affichés dans les tableaux de bord. Ils permettent de suivre l'évolution des interventions, la répartition des pannes et l'état des stocks.
 
+    Le tableau de bord administrateur synthétise les indicateurs clés, les graphiques d'activité et les machines nécessitant une attention particulière.
+
 \begin{figure}[H]
     \centering
-    \IfFileExists{figures/sprint5-dashboard.png}{%
-        \includegraphics[width=0.95\textwidth,height=0.82\textheight,keepaspectratio]{figures/sprint5-dashboard.png}%
-    }{%
-        \fbox{\parbox[c][7cm][c]{0.92\textwidth}{\centering\itshape Capture d'écran à insérer\\[2mm]\texttt{figures/sprint5-dashboard.png}}}%
-    }
-    \caption{Tableau de bord et indicateurs de maintenance}
+    \includegraphics[width=0.86\textwidth,height=0.80\textheight,keepaspectratio]{figures/captures/sprint5-dashboard.png}
+    \caption{Tableau de bord global de maintenance}
     \label{fig:sprint5-dashboard}
 \end{figure}
 
@@ -361,6 +375,15 @@ Rapport des indicateurs & MTBF, MTTR et disponibilité par machine & PDF, Excel,
 Les rapports PDF sont destinés à la consultation et à l'archivage. Les exports Excel et CSV facilitent les traitements complémentaires et l'analyse des données.
 
 L'accès aux rapports est limité selon le rôle et le périmètre de l'utilisateur. Un technicien consulte les rapports relatifs à ses interventions, tandis que l'administrateur dispose d'une vue globale.
+
+L'écran de génération propose le type de rapport, la machine et la période, les formats PDF, Excel et CSV, puis affiche le rapport produit dans la liste des rapports disponibles.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.80\textwidth,height=0.78\textheight,keepaspectratio]{figures/captures/sprint5-report-export.png}
+    \caption{Génération d'un rapport de maintenance}
+    \label{fig:sprint5-report-export}
+\end{figure}
 
 \subsubsection{Rapports planifiés}
 

@@ -186,6 +186,15 @@ Cette organisation suit les recommandations du cadre SSDF du NIST, qui prévoit 
 
 Deux points de contrôle conditionnent la suite de la chaîne. L'analyse SonarCloud attend explicitement le verdict de la quality gate et échoue si celui-ci n'est pas favorable. Les analyses de sécurité, fondées sur l'audit des dépendances et sur Trivy \cite{trivy_docs}, échouent également lorsque des vulnérabilités de niveau élevé ou critique sont détectées. En revanche, le rapport détaillé de ces analyses est transmis à l'onglet de sécurité du dépôt même lorsque la chaîne échoue, afin de conserver la trace des anomalies.
 
+L'exécution présentée ci-dessous regroupe les contrôles d'hygiène du dépôt, de qualité du frontend et du backend, les tests de bout en bout, l'analyse SonarCloud et les contrôles de sécurité.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth,height=0.72\textheight,keepaspectratio]{figures/captures/sprint7-ci-pipeline.png}
+    \caption{Exécution des contrôles de la chaîne d'intégration continue}
+    \label{fig:sprint7-ci-pipeline}
+\end{figure}
+
 \subsubsection{Architecture de déploiement}
 
 Les composants ne sont pas hébergés sur une même infrastructure. Le frontend est déployé sur une plateforme spécialisée dans les applications Next.js, tandis que le backend, le service d'analyse et les services de supervision sont hébergés sur une plateforme de services web. La figure~\ref{fig:architecture-deploiement} présente cette répartition et les flux entre composants.

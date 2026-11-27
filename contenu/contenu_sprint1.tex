@@ -176,16 +176,14 @@ Le service d'authentification vérifie successivement l'existence du compte, la 
 
 Le jeton d'accès autorise les requêtes vers les points d'entrée protégés. Le jeton de rafraîchissement permet de maintenir la session et d'éviter une nouvelle saisie des identifiants à chaque expiration du jeton d'accès. Des messages d'erreur génériques sont affichés en cas d'échec afin de ne pas révéler si l'adresse électronique existe dans le système.
 
-% Capture d'écran : déposer le fichier figures/sprint1-login.png pour l'afficher.
-\IfFileExists{figures/sprint1-login.png}{%
+Le formulaire d'authentification regroupe la saisie des identifiants, l'accès par compte Google et le lien de récupération du mot de passe.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.82\textwidth,keepaspectratio]{figures/sprint1-login.png}
-    \caption{Interface d'authentification de la plateforme}
+    \includegraphics[width=0.52\textwidth,height=0.72\textheight,keepaspectratio]{figures/captures/sprint1-login.png}
+    \caption{Interface d'authentification}
     \label{fig:sprint1-login}
 \end{figure}
-}{}
-
 \subsubsection{Inscription et vérification de l'adresse électronique}
 
 Le formulaire d'inscription permet de saisir le nom complet, l'adresse électronique, le mot de passe et la confirmation du mot de passe. Les données sont contrôlées avant leur enregistrement, notamment l'unicité de l'adresse électronique et la robustesse du mot de passe.
@@ -236,16 +234,14 @@ Désactivé & Un compte anciennement autorisé ne peut plus se connecter \\
 \end{tabularx}
 \end{table}
 
-% Capture d'écran : déposer le fichier figures/sprint1-user-approval.png pour l'afficher.
-\IfFileExists{figures/sprint1-user-approval.png}{%
+L'écran d'administration liste les comptes, permet de les filtrer par état et propose les actions d'approbation ou de rejet ainsi que l'attribution d'un rôle.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth,keepaspectratio]{figures/sprint1-user-approval.png}
-    \caption{Interface d'administration et d'approbation des comptes}
+    \includegraphics[width=0.90\textwidth,height=0.55\textheight,keepaspectratio]{figures/captures/sprint1-user-approval.png}
+    \caption{Approbation des comptes utilisateurs}
     \label{fig:sprint1-user-approval}
 \end{figure}
-}{}
-
 \subsubsection{Contrôle d'accès et sécurité}
 
 Le contrôle d'accès repose sur trois rôles : \texttt{ADMIN}, \texttt{TECHNICIAN} et \texttt{OPERATOR}. Des gardes d'autorisation vérifient le jeton et le rôle avant toute opération protégée~\cite{nestjs_auth}. Le frontend applique également une protection des routes et adapte les menus aux habilitations de l'utilisateur.

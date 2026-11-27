@@ -203,16 +203,14 @@ Le formulaire de création regroupe les informations administratives et techniqu
 
 La liste des machines propose une recherche, un filtrage par type et par état ainsi qu'une pagination. L'administrateur peut accéder directement à la fiche détaillée de chaque équipement.
 
-% Capture d'écran : déposer le fichier figures/sprint2-machines-list.png pour l'afficher.
-\IfFileExists{figures/sprint2-machines-list.png}{%
+Le référentiel présente les machines avec leur type, leur état et les outils de recherche et de filtrage.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth,keepaspectratio]{figures/sprint2-machines-list.png}
-    \caption{Liste des machines industrielles}
+    \includegraphics[width=0.92\textwidth,height=0.72\textheight,keepaspectratio]{figures/captures/sprint2-machines-list.png}
+    \caption{Référentiel des machines industrielles}
     \label{fig:sprint2-machines-list}
 \end{figure}
-}{}
-
 \subsubsection{Gestion des modules et des composants}
 
 Une machine peut être décomposée en plusieurs modules, eux-mêmes décrits par un type de module. Cette organisation permet de représenter la structure réelle des équipements, par exemple les ensembles fonctionnels d'une tresseuse ou d'une machine de découpe.
@@ -231,16 +229,14 @@ La chronologie de la machine rassemble les événements liés aux interventions,
 
 L'accès à cette chronologie est limité par le contrôle des autorisations : l'administrateur dispose d'une vue complète, tandis que le technicien et l'opérateur consultent les informations relatives aux machines qui leur sont accessibles.
 
-% Capture d'écran : déposer le fichier figures/sprint2-machine-detail.png pour l'afficher.
-\IfFileExists{figures/sprint2-machine-detail.png}{%
+La fiche d'une machine rassemble ses modules, ses documents techniques et sa chronologie d'événements.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth,keepaspectratio]{figures/sprint2-machine-detail.png}
-    \caption{Fiche détaillée et chronologie d'une machine}
+    \includegraphics[width=0.80\textwidth,height=0.80\textheight,keepaspectratio]{figures/captures/sprint2-machine-detail.png}
+    \caption{Fiche détaillée et historique d'une machine}
     \label{fig:sprint2-machine-detail}
 \end{figure}
-}{}
-
 \subsubsection{Gestion documentaire}
 
 La plateforme permet d'associer des manuels, des notices et d'autres documents techniques aux machines. Chaque document est décrit par un nom, un type et la machine concernée.
@@ -259,16 +255,14 @@ Les documents PDF peuvent être affichés directement dans l'interface au moyen 
 
 Ce mécanisme évite la diffusion de documents non validés ou archivés et garantit que les utilisateurs disposent de la version en vigueur lors de leurs interventions.
 
-% Capture d'écran : déposer le fichier figures/sprint2-document-viewer.png pour l'afficher.
-\IfFileExists{figures/sprint2-document-viewer.png}{%
+Le visualiseur affiche le document en place, avec son nom, sa version et la machine à laquelle il est rattaché.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth,keepaspectratio]{figures/sprint2-document-viewer.png}
-    \caption{Consultation d'un document technique dans la plateforme}
+    \includegraphics[width=0.52\textwidth,height=0.62\textheight,keepaspectratio]{figures/captures/sprint2-document-viewer.png}
+    \caption{Consultation d'un document technique}
     \label{fig:sprint2-document-viewer}
 \end{figure}
-}{}
-
 \subsection{Tests et validation}
 
 Le tableau~\ref{tab:tests-sprint2} présente une synthèse des scénarios vérifiés pour ce Sprint.

@@ -172,6 +172,15 @@ Il peut ajouter des observations, signaler une anomalie détectée pendant le co
 L'intervention reste dans un état en attente de validation. Elle ne génère pas encore l'échéance suivante, ce qui garantit qu'un contrôle non validé ne soit pas considéré comme réalisé.
 
 Les opérations relevant de la maintenance corrective restent traitées dans le Sprint suivant. Le présent Sprint se limite aux interventions issues d'un plan préventif.
+L'opérateur coche les tâches de la liste de contrôle, consigne ses observations puis soumet l'intervention pour validation. La figure~\ref{fig:sprint3-checklist} présente cet écran d'exécution.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth,height=0.72\textheight,keepaspectratio]{figures/captures/sprint3-checklist.png}
+    \caption{Exécution d'une intervention préventive}
+    \label{fig:sprint3-checklist}
+\end{figure}
+
 \subsubsection{Validation et génération de la prochaine échéance}
 
 Le technicien ou l'administrateur examine l'intervention soumise, les tâches effectuées et les observations de l'opérateur. Il peut valider l'intervention ou la rejeter en précisant le motif.
@@ -180,16 +189,15 @@ Après validation, le système marque l'occurrence comme réalisée puis crée l
 
 Le système conserve la trace de la validation, de son auteur et de sa date. Cette traçabilité permet de vérifier le respect du plan et d'alimenter les indicateurs de conformité de la maintenance préventive.
 
+    L'écran de validation présente le détail soumis par l'opérateur, les boutons de validation et de rejet ainsi que la zone de motif.
+
 \begin{figure}[H]
     \centering
-    \IfFileExists{figures/sprint3-preventive-validation.png}{%
-        \includegraphics[width=0.95\textwidth,height=0.82\textheight,keepaspectratio]{figures/sprint3-preventive-validation.png}%
-    }{%
-        \fbox{\parbox[c][7cm][c]{0.92\textwidth}{\centering\itshape Capture d'écran à insérer\\[2mm]\texttt{figures/sprint3-preventive-validation.png}}}%
-    }
+    \includegraphics[width=0.92\textwidth,height=0.78\textheight,keepaspectratio]{figures/captures/sprint3-preventive-validation.png}
     \caption{Validation d'une intervention préventive}
     \label{fig:sprint3-preventive-validation}
 \end{figure}
+
 \subsubsection{Replanification et suivi de l'état préventif}
 
 Lorsqu'une occurrence ne peut pas être réalisée à la date prévue, un technicien ou un administrateur peut la replanifier. L'opération conserve le lien avec le plan d'origine et reporte la nouvelle date dans le calendrier.
@@ -199,6 +207,15 @@ La consultation de l'état préventif d'une machine regroupe les occurrences pla
 Le calendrier préventif présente les interventions à venir et facilite l'organisation des équipes. Il est alimenté automatiquement par les échéances générées après validation.
 
 Afin de contrôler la cohérence des dates et des occurrences, un audit de planification a également été mis en place. Il vérifie les occurrences en attente, les dates dépassées et les échéances successives.
+Le calendrier préventif regroupe les occurrences à venir, les échéances dépassées et les interventions en attente de validation, avec leur machine et leur état.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth,height=0.72\textheight,keepaspectratio]{figures/captures/sprint3-calendar.png}
+    \caption{Calendrier des opérations préventives}
+    \label{fig:sprint3-calendar}
+\end{figure}
+
 \subsubsection{Diagramme d'activités du flux préventif}
 
 Le flux préventif suit une logique de validation avant la génération de l'échéance suivante. Une intervention soumise par l'opérateur n'est considérée comme réalisée qu'après la validation d'un technicien ou d'un administrateur.
@@ -250,17 +267,14 @@ Un plan peut être créé manuellement ou importé à partir des référentiels 
 
 Le cycle de vie du plan est contrôlé : un plan suspendu ne génère pas de nouvelle occurrence, tandis qu'un plan archivé reste consultable pour l'historique mais n'est plus planifié.
 
+Le détail d'un plan rassemble ses tâches, sa fréquence, son unité, la machine concernée et son statut.
+
 \begin{figure}[H]
     \centering
-    \IfFileExists{figures/sprint3-plans-list.png}{%
-        \includegraphics[width=0.95\textwidth,height=0.82\textheight,keepaspectratio]{figures/sprint3-plans-list.png}%
-    }{%
-        \fbox{\parbox[c][7cm][c]{0.92\textwidth}{\centering\itshape Capture d'écran à insérer\\[2mm]\texttt{figures/sprint3-plans-list.png}}}%
-    }
-    \caption{Liste des plans de maintenance préventive}
-    \label{fig:sprint3-plans-list}
+    \includegraphics[width=0.86\textwidth,height=0.78\textheight,keepaspectratio]{figures/captures/sprint3-plan-detail.png}
+    \caption{Plan de maintenance préventive et liste de contrôle}
+    \label{fig:sprint3-plan-detail}
 \end{figure}
-
 \subsection{Tests et validation}
 
 Le tableau~\ref{tab:tests-sprint3} présente une synthèse des scénarios vérifiés pour ce Sprint.
