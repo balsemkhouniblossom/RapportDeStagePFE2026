@@ -1,11 +1,32 @@
+﻿% =====================================================================
+%  Page de garde — visuel fourni (images/cover/cover_page_de_garde.png)
+%
+%  Le visuel est une image (export Canva) : il contient les logos, le
+%  bandeau rouge, la spécialité et les encadrants. Le titre du projet y
+%  était « gravé » ; il a été retiré de l'image et il est désormais composé
+%  ici en texte vectoriel, net à l'impression et modifiable ci-dessous.
+%
+%  Géométrie reprise du visuel d'origine (A4 = 210 x 297 mm) :
+%    - marge gauche du titre : 45,0 mm
+%    - ligne 1 (base)        : 135,1 mm depuis le haut
+%    - interligne            : 10,3 mm
+%    - corps                 : 24,37 pt gras (type Arial)
+%  Pour changer le titre, modifier uniquement les deux \node ci-dessous.
+% =====================================================================
+\begin{tikzpicture}[remember picture, overlay, x=1mm, y=-1mm]
 
-\newgeometry{margin=0cm} % remove all margins
+  % ---- visuel de la page de garde -------------------------------------
+  \node[anchor=center, inner sep=0pt] at (current page.center) {%
+    \includegraphics[width=\paperwidth,height=\paperheight]%
+      {images/cover/cover_page_de_garde.png}};
 
-\begin{figure}[p]
-    \centering
-    \includegraphics[width=\paperwidth,height=\paperheight]{images/PageDeGarde.png}
-\end{figure}
+  % ---- intitulé du projet (texte vectoriel) ---------------------------
+  \begin{scope}[shift={(current page.north west)}]
+    \fontfamily{phv}\selectfont\bfseries
+    \node[anchor=base west, inner sep=0pt, text=black] at (45.0, 135.1) {%
+      \fontsize{24.37}{29.3}\selectfont Plateforme intelligente de maintenance};
+    \node[anchor=base west, inner sep=0pt, text=black] at (45.0, 145.4) {%
+      \fontsize{24.37}{29.3}\selectfont industrielle basée sur l’Industrie 4.0};
+  \end{scope}
 
-\restoregeometry
-
-\clearpage
+\end{tikzpicture}%
