@@ -88,6 +88,11 @@
     labelsep=space
 }
 
+% Libelles des flottants en francais : babel fournit \figurename = Figure
+% mais \tablename = Table. On retablit << Tableau >> (les termes
+% techniques des tableaux ne sont pas modifies).
+\addto\captionsfrench{\renewcommand{\tablename}{Tableau}}
+
 % ===================== LISTS =====================
 \usepackage{enumitem}
 \setlist[itemize]{noitemsep,topsep=2pt}
